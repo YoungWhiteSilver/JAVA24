@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--在方法里调用时是 namespace + id eg ： 在MyBatisTestCase.class类中-->
+
+<mapper namespace="com.kaishengit.mappers.StudentMapper">
+    <!--
+        parameterType : 传入参数类型
+        resultType : 返回值类型
+        当没有在MyBaties-config.xml中设置别名的时候，需要使用完全限定名
+        eg :
+        parameterType="com.kaishengit.entity.Student"
+        resultType="com.kaishengit.entity.Student"
+     -->
+    <insert id="save" parameterType="com.kaishengit.entity.Student">
+        INSERT INTO t_student (
+            stu_name,
+            stu_age,
+            stu_address
+        )
+        VALUES
+            (#{stuName}, #{stuAge}, #{stuAddress})
+    </insert>
+
+    <select id="findAll" resultType="Student">
+      SELECT
+        id,
+        stu_name,
+        stu_age,
+        stu_address
+      FROM
+        t_student
+    </select>
+
+    <select id="findById" parameterType="int" resultType="Student">
+       SELECT
+        id,
+        stu_name,
+        stu_age,
+        stu_address
+      FROM
+        t_student
+       WHERE
+        id = #{id}
+    </select>
+
+    <update id="updateName" parameterType="Student">
+
+        UPDATE t_student
+            SET stu_name = #{stuName},
+             stu_age = #{stuAge},
+             stu_address = #{stuAddress}
+            WHERE
+                id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE
+        FROM
+            t_student
+        WHERE
+            id = #{id}
+    </delete>
+
+
+
+</mapper>

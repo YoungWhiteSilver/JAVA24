@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--获得jdbc的配置文件-->
+    <properties resource="JDBC.properties">
+    </properties>
+
+    <!--设置把数据库中stu_name转换为java中的驼峰名stuName-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+
+    <!--设置别名-->
+    <typeAliases>
+        <typeAlias type="com.kaishengit.entity.Student" alias="Student"/>
+        <!--<package name="com.kaishengit.entity" />-->
+    </typeAliases>
+
+    <!--配置jdbc 并设置了默认调用dev数据库-->
+    <environments default="dev">
+        <!--给数据库连接命名-->
+        <environment id="dev">
+            <!--设置数据库链接类型-->
+            <transactionManager type="JDBC"> </transactionManager>
+            <!-- 设置是否使用数据连接池 POOLED: 使用数据库连接池  UNPOOLED: 不使用数据连接池  JNDI-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--配置mapper.xml的文件的位置-->
+    <mappers>
+        <mapper resource="mappers/StudentMapper.xml"/>
+    </mappers>
+
+</configuration>
