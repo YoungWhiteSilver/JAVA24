@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kaishengit.mappers.PersonnelMapper">
+
+    <!--解决对象的属性为对象时打印为null-->
+    <!--方法一-->
+    <resultMap type="Personnel" id="PersonnelMap">
+        <id property="id" column="id" />
+        <result column="personnel_name" property="personnelName" />
+        <result column="personnel_age" property="personnelAge" />
+        <result column="personnel_team_id" property="personnelTeamId"/>
+        <association property="team" javaType="Team">
+            <id column="personnel_team_id" property="id" />
+            <result column="team_name" property="teamName" />
+        </association>
+    </resultMap>
+
+    <!--该方式使用resultMap-->
+    <!--
+    <select id="findById" resultMap="PersonnelMap">-->
+        <!--SELECT-->
+            <!--t_personnel.id,-->
+            <!--personnel_name,-->
+            <!--personnel_age,-->
+            <!--personnel_team_id,-->
+            <!--team_name-->
+        <!--FROM-->
+            <!--t_personnel-->
+        <!--LEFT JOIN-->
+            <!--t_team-->
+        <!--ON-->
+            <!--personnel_team_id = t_team.id-->
+        <!--WHERE-->
+            <!--t_personnel.id = #{id}-->
+    <!--</select>-->
+
+    <!-- OGNL ：对象图导航语言
+        下面的as 后的为  实体类别名.属性名
+        运动了 OGNL方法
+    -->
+    
+    <select id="findById" resultType="Personnel">
+        SELECT
+        t_personnel.id,
+        personnel_name,
+        personnel_age,
+        personnel_team_id AS 'Team.id',
+        team_name AS 'Team.teamName'
+        FROM
+        t_personnel
+        LEFT JOIN
+        t_team
+        ON
+        personnel_team_id = t_team.id
+        WHERE
+        t_personnel.id = #{id}
+    </select>
+
+
+</mapper>

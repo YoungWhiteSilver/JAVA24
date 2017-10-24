@@ -16,6 +16,8 @@
     <!--设置别名-->
     <typeAliases>
         <typeAlias type="com.kaishengit.entity.Student" alias="Student"/>
+        <typeAlias type="com.kaishengit.entity.Personnel" alias="Personnel"/>
+        <typeAlias type="com.kaishengit.entity.Team" alias="Team" />
         <!--<package name="com.kaishengit.entity" />-->
     </typeAliases>
 
@@ -38,6 +40,7 @@
     <!--配置mapper.xml的文件的位置-->
     <mappers>
         <mapper resource="mappers/StudentMapper.xml"/>
+        <mapper resource="mappers/PersonnelMapper.xml"/>
     </mappers>
 
 </configuration>

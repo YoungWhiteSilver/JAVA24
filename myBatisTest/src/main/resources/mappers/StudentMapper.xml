@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--在方法里调用时是 namespace + id eg ： 在MyBatisTestCase.class类中-->
-
+<!--当不使用接口的时候，在方法里调用时是 namespace + id  eg ： 在test/MyBatisTestCase.class类中-->
+<!--当时使用接口的时候，需要创建完全限定名和namespace相同的接口 eg: 查看test/StudentMapperTestCase.class -->
 <mapper namespace="com.kaishengit.mappers.StudentMapper">
     <!--
         parameterType : 传入参数类型
@@ -13,8 +13,13 @@
         eg :
         parameterType="com.kaishengit.entity.Student"
         resultType="com.kaishengit.entity.Student"
+        获得自动增长的主键的方法，必须如此
+        useGeneratedKeys="true" : 使用自动增长的主键
+        keyProperty="id"    将主键复制给student的属性Id
+
      -->
-    <insert id="save" parameterType="com.kaishengit.entity.Student">
+
+    <insert id="save" parameterType="com.kaishengit.entity.Student" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_student (
             stu_name,
             stu_age,
