@@ -8,6 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by silver on 2017/10/24.
  */
@@ -59,7 +64,53 @@ public class StudentMapperTestCase {
 
     }
 
+    @Test
+    public void Random() {
 
+        StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+
+        List<Student> studentList = new ArrayList<>();
+
+        for(int i = 0; i < 50; i ++) {
+
+            int ageRandom = (int)(Math.random() * 20) + 15;
+
+            int forRandom = ((int)(Math.random() * 3) + 1) + 2;
+
+            String name = "";
+
+            for(int j = 0; j < forRandom; j ++) {
+
+                String chars = "abcdefghijklmnopqrstuvwxyz";
+                name += chars.charAt((int)(Math.random() * 26));
+            }
+
+            String[] addresses = {"北京", "上海", "广州", "深圳", "天津", "哈尔冰", "纽约", "渥太华", "洛杉矶", "肯尼亚"};
+
+            int addressRandom = (int)(Math.random() * 10);
+
+            String address = addresses[addressRandom];
+
+            Student student = new Student(name, ageRandom , address);
+
+            studentList.add(student);
+
+        }
+
+        int saveSome = studentMapper.saveSome(studentList);
+
+        System.out.println(saveSome);
+
+        sqlSession.commit();
+
+    }
+
+    @Test
+    public void Test() {
+
+        System.out.println(((int)(Math.random() * 3) + 1) + 2);
+
+    }
 
 
 

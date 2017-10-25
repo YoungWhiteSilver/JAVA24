@@ -68,7 +68,25 @@
         WHERE
             id = #{id}
     </delete>
+    <!--批量插入 用forEach
+        collection="studentList" 传入的List参数名
+        item="Student" 传入的list集合元素类型的名字，如果设置别名，
+        用别名吗如果没有，用完全限定名
+        separator="," 每循环一次加上标点，最后一个自动抹去
+    -->
+    <insert id="saveSome" parameterType="list">
+       INSERT INTO t_student (
+       stu_name,
+       stu_age,
+       stu_address
+       )
+       VALUES
+       <foreach collection="studentList" item="Student" separator=",">
 
+           (#{Student.stuName}, #{Student.stuAge}, #{Student.stuAddress})
+       </foreach>
+
+    </insert>
 
 
 </mapper>

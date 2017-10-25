@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kaishengit.mappers.BoyMapper">
+
+    <!-- 解决一对多问题 即对象里含有list，数组或map的情况-->
+    <resultMap id="BoyMap" type="Boy">
+        <id property="id" column="id"/>
+        <result property="boyName" column="boy_name" />
+        <result property="boyAge" column="boy_age" />
+        <collection property="labelList" ofType="Label" >
+            <!-- 注意 当该对象的Id与Boy的Id名相同的时候，需要起别名！-->
+            <id property="id" column="labelId" />
+            <result property="labelName" column="label_name" />
+        </collection>
+    </resultMap>
+
+    <select id="findBoyAndLabel" resultMap="BoyMap">
+        SELECT
+          t_boy.id,
+          boy_name,
+          boy_age,
+          t_label.id AS labelId,
+          label_name
+        FROM
+          t_boy
+        INNER JOIN t_boy_label ON boy_id = t_boy.id
+        INNER JOIN t_label ON t_label.id = label_id
+        WHERE  t_boy.ID = #{id}
+    </select>
+
+</mapper>

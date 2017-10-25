@@ -1,6 +1,9 @@
 package com.kaishengit.mappers;
 
 import com.kaishengit.entity.Student;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  *
@@ -36,6 +39,12 @@ public interface StudentMapper {
      */
     void updateName(Student student) ;
 
+    /**
+     * 批量添加
+     * @param studentList 传入studentLsit
+     * @return 返回受影响行数
+     */
+    int saveSome(@Param("studentList")List<Student> studentList);
 
 
 }

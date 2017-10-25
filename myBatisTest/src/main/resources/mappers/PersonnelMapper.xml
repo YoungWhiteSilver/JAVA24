@@ -5,7 +5,7 @@
 
 <mapper namespace="com.kaishengit.mappers.PersonnelMapper">
 
-    <!--解决对象的属性为对象时打印为null-->
+    <!--解决对象的属性为对象时打印为null 一对一-->
     <!--方法一-->
     <resultMap type="Personnel" id="PersonnelMap">
         <id property="id" column="id" />
@@ -41,7 +41,7 @@
         下面的as 后的为  实体类别名.属性名
         运动了 OGNL方法
     -->
-    
+
     <select id="findById" resultType="Personnel">
         SELECT
         t_personnel.id,
@@ -58,6 +58,5 @@
         WHERE
         t_personnel.id = #{id}
     </select>
-
 
 </mapper>

@@ -18,6 +18,8 @@
         <typeAlias type="com.kaishengit.entity.Student" alias="Student"/>
         <typeAlias type="com.kaishengit.entity.Personnel" alias="Personnel"/>
         <typeAlias type="com.kaishengit.entity.Team" alias="Team" />
+        <typeAlias type="com.kaishengit.entity.Boy" alias="Boy" />
+        <typeAlias type="com.kaishengit.entity.Label" alias="Label" />
         <!--<package name="com.kaishengit.entity" />-->
     </typeAliases>
 
@@ -41,6 +43,7 @@
     <mappers>
         <mapper resource="mappers/StudentMapper.xml"/>
         <mapper resource="mappers/PersonnelMapper.xml"/>
+        <mapper resource="mappers/BoyMapper.xml" />
     </mappers>
 
 </configuration>
