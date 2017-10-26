@@ -77,12 +77,12 @@ public class StudentMapperTestCase {
 
             int forRandom = ((int)(Math.random() * 3) + 1) + 2;
 
-            String name = "";
+            StringBuffer nameBuffer = new StringBuffer();
 
             for(int j = 0; j < forRandom; j ++) {
 
                 String chars = "abcdefghijklmnopqrstuvwxyz";
-                name += chars.charAt((int)(Math.random() * 26));
+                nameBuffer.append(chars.charAt((int)(Math.random() * 26)));
             }
 
             String[] addresses = {"北京", "上海", "广州", "深圳", "天津", "哈尔冰", "纽约", "渥太华", "洛杉矶", "肯尼亚"};
@@ -91,7 +91,7 @@ public class StudentMapperTestCase {
 
             String address = addresses[addressRandom];
 
-            Student student = new Student(name, ageRandom , address);
+            Student student = new Student(nameBuffer.toString(), ageRandom , address);
 
             studentList.add(student);
 

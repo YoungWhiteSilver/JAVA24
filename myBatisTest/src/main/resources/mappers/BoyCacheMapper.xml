@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mappers.BoyCacheMapper">
+
+    <!-- 开启二级缓存
+        开启二级缓存后需要将被缓存的对象进行序列化；然后再对应的mappper.xml中添加
+        <cache />
+        二级缓存的SqlSession必须来自同一个SqlSessionFactory中，二级缓存是默认关闭的
+        1.开启后所有映射文件里的select语句将被缓存，（如果缓存开启后，语句不需要缓存，
+        则在相应的select语句中添加 属性 useCase="fales"）
+        2.开启后，映射语句的所有insert，update，delete将会刷新缓存，（如果缓存开启后，语句
+        不需要缓存，则在相应的语句中添加 flushCache="false"）
+        缓存的算法有
+        LRU:最近最少使用的，移除长时间不被使用的，当命中缓存后，将会把该缓存提到队列最前端
+    -->
+    <cache size="10" eviction="LRU" flushInterval="60000"/>
+
+    <select id="findAll" resultType="Boy">
+        SELECT
+            id,
+            boy_name,
+            boy_age
+        FROM
+            t_boy
+    </select>
+</mapper>

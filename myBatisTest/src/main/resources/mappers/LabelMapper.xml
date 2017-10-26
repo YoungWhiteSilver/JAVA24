@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mappers.LabelMapper">
+
+    <select id="findById" resultType="Label">
+
+      SELECT
+            label_name
+        FROM
+            t_label
+        INNER JOIN t_boy_label ON t_boy_label.label_id = t_label.id
+        WHERE
+            t_boy_label.boy_id = #{id}
+
+    </select>
+
+</mapper>

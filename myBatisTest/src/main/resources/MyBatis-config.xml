@@ -44,6 +44,12 @@
         <mapper resource="mappers/StudentMapper.xml"/>
         <mapper resource="mappers/PersonnelMapper.xml"/>
         <mapper resource="mappers/BoyMapper.xml" />
+        <mapper resource="mappers/BoyCacheMapper.xml" />
+        <mapper resource="mappers/LabelMapper.xml" />
+
+        <!-- 使用注解时添加，如果使用注解时也是用了mapper.xml，
+        则需要同上写法一样，配置mapper。xml地址-->
+        <mapper class="com.kaishengit.mappers.TeamMapper" />
     </mappers>
 
 </configuration>

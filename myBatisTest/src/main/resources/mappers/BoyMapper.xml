@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kaishengit.mappers.BoyMapper">
 
     <!-- 解决一对多问题 即对象里含有list，数组或map的情况-->
@@ -30,6 +29,23 @@
             <result property="labelName" column="label_name" />
         </collection>
     </resultMap>
+
+    <!-- 第三种 -->
+
+    <resultMap id="boyAndLabelTwo" type="Boy" extends="boyMap">
+        <collection property="labelList" column="id" ofType="Label" select="com.kaishengit.mappers.LabelMapper.findById" />
+    </resultMap>
+
+    <select id="findBoyAndLabelTwo" resultMap="boyAndLabelTwo">
+        SELECT
+          t_boy.id,
+          boy_name,
+          boy_age
+        FROM
+          t_boy
+        WHERE
+           id = #{id}
+    </select>
 
     <select id="findBoyAndLabel" resultMap="boyAndLabel">
         SELECT

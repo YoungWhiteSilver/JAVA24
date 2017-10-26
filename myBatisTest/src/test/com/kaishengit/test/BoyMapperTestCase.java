@@ -44,6 +44,18 @@ public class BoyMapperTestCase {
         }
 
     }
+    @Test
+    public void findBoyAndLabelTowTest() {
+
+        Boy boy = boyMapper.findBoyAndLabelTwo(1);
+        System.out.println(boy.getBoyName() + "<============>" + boy.getBoyAge());
+        System.out.println(boy.getLabelList().size());
+
+        for(Label n: boy.getLabelList()) {
+            System.out.println(n);
+        }
+
+    }
 
 
 
