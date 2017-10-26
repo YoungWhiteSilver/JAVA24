@@ -6,18 +6,32 @@
 <mapper namespace="com.kaishengit.mappers.BoyMapper">
 
     <!-- 解决一对多问题 即对象里含有list，数组或map的情况-->
-    <resultMap id="BoyMap" type="Boy">
-        <id property="id" column="id"/>
+    <!--<resultMap id="BoyMap" type="Boy">-->
+        <!--<id property="id" column="id"/>-->
+        <!--<result property="boyName" column="boy_name" />-->
+        <!--<result property="boyAge" column="boy_age" />-->
+        <!--<collection property="labelList" ofType="Label" >-->
+            <!--&lt;!&ndash; 注意 当该对象的Id与Boy的Id名相同的时候，需要起别名！&ndash;&gt;-->
+            <!--<id property="id" column="labelId" />-->
+            <!--<result property="labelName" column="label_name" />-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+
+    <!-- 第二种方法 -->
+    <resultMap id="boyMap" type="Boy">
+        <id property="id" column="id" />
         <result property="boyName" column="boy_name" />
         <result property="boyAge" column="boy_age" />
-        <collection property="labelList" ofType="Label" >
-            <!-- 注意 当该对象的Id与Boy的Id名相同的时候，需要起别名！-->
+    </resultMap>
+
+    <resultMap id="boyAndLabel" type="Boy" extends="boyMap">
+        <collection property="labelList" ofType="Label">
             <id property="id" column="labelId" />
             <result property="labelName" column="label_name" />
         </collection>
     </resultMap>
 
-    <select id="findBoyAndLabel" resultMap="BoyMap">
+    <select id="findBoyAndLabel" resultMap="boyAndLabel">
         SELECT
           t_boy.id,
           boy_name,

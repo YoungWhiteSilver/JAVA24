@@ -35,7 +35,7 @@ public class BoyMapperTestCase {
     @Test
     public void findBoyAndLabelTest() {
 
-        Boy boy = boyMapper.findBoyAndLabel(4);
+        Boy boy = boyMapper.findBoyAndLabel(1);
         System.out.println(boy.getBoyName() + "<============>" + boy.getBoyAge());
         System.out.println(boy.getLabelList().size());
 
