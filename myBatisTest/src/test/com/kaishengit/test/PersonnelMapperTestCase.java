@@ -37,5 +37,14 @@ public class PersonnelMapperTestCase {
 
     }
 
+    @Test
+    public void findByIdTwo() {
+
+        PersonnelMapper personnelMapper = sqlSession.getMapper(PersonnelMapper.class);
+        Personnel personnel = personnelMapper.findByIdTwo(1);
+        System.out.println(personnel);
+
+    }
+
 
 }

@@ -35,6 +35,11 @@ public interface TeamMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void save(Team team);
 
+    /**1
+     * @param id 1
+     * @return 1
+     */
+    Team findByIdTwo(int id);
 
 
 }

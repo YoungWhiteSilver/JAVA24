@@ -7,20 +7,45 @@
 
     <!--解决对象的属性为对象时打印为null 一对一-->
     <!--方法一-->
-    <resultMap type="Personnel" id="PersonnelMap">
+    <!--<resultMap type="Personnel" id="PersonnelMap">-->
+        <!--<id property="id" column="id" />-->
+        <!--<result column="personnel_name" property="personnelName" />-->
+        <!--<result column="personnel_age" property="personnelAge" />-->
+        <!--<result column="personnel_team_id" property="personnelTeamId"/>-->
+        <!--<association property="team" javaType="Team">-->
+            <!--<id column="personnel_team_id" property="id" />-->
+            <!--<result column="team_name" property="teamName" />-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+    <resultMap id="PersonnelMapTwo" type="Personnel">
         <id property="id" column="id" />
         <result column="personnel_name" property="personnelName" />
         <result column="personnel_age" property="personnelAge" />
         <result column="personnel_team_id" property="personnelTeamId"/>
-        <association property="team" javaType="Team">
-            <id column="personnel_team_id" property="id" />
-            <result column="team_name" property="teamName" />
-        </association>
     </resultMap>
 
+    <resultMap id="PersonnelAndTeamMapTwo" type="Personnel" extends="PersonnelMapTwo">
+
+        <association property="team" javaType="Team" column="personnel_team_id" select="com.kaishengit.mappers.TeamMapper.findByIdTwo" />
+
+    </resultMap>
+
+    <select id="findByIdTwo" resultMap="PersonnelAndTeamMapTwo" >
+        SELECT
+            t_personnel.id,
+            personnel_name,
+            personnel_age,
+            personnel_team_id
+        FROM
+            t_personnel
+        WHERE
+            t_personnel.id = #{id}
+
+    </select>
+
     <!--该方式使用resultMap-->
-    <!--
-    <select id="findById" resultMap="PersonnelMap">-->
+    <!--<select id="findById" resultMap="PersonnelMap">&ndash;&gt;-->
         <!--SELECT-->
             <!--t_personnel.id,-->
             <!--personnel_name,-->
