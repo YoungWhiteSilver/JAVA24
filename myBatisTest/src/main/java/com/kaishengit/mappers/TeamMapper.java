@@ -1,18 +1,18 @@
 package com.kaishengit.mappers;
 
 import com.kaishengit.entity.Team;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 /**
- *
+ *@CacheNamespace 开启二级缓存
  * @author silver
  * @date 2017/10/26
  */
+
+/*@CacheNamespace*/
+
 public interface TeamMapper {
 
     /**
@@ -26,8 +26,9 @@ public interface TeamMapper {
     /**
      * 插入
      * 注解生成主键的方法
-     * @Options(useCache=true)
-     * 开启二级缓存
+     * @Options(useCache=false)
+     *把相对的语句禁用耳机缓存
+     *
      * @param team
      *
      */

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!-- 该文件名必须为 generatorConfig.xml
+    还需要再pom.xml添加maven依赖
+    执行命令 mvn mybatis-generator:generate 执行该文件
+-->
+<generatorConfiguration>
+
+    <!-- 设置jdbc的驱动-->
+    <classPathEntry location="F:/kaisheng24/kaishengDriver/mysql-connector-java-5.1.6.jar" />
+
+    <!--设置 生成的sql的模式
+        id ：自定义
+        targetRuntime : MyBatis3Simple 生成简单的CRUD语句
+                        MyBatis3 生成带Example的CRUD语句
+     -->
+    <context id="mybatisCofig" targetRuntime="MyBatis3">
+        <!--是否生成注释
+            是否生生成创建日期
+            true ：不生成
+         -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <!--
+            设置数据库连接
+         -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/mydb" userId="root"
+                        password="123456" />
+
+
+        <!--设置生成的实体类在那个文件夹
+            targetPackage="com.kaishengit.entity" 完全限定名除去类名的形式
+            targetProject="src/main/java"  在那个文件下
+         -->
+        <javaModelGenerator targetPackage="com.kaishengit.entity" targetProject="src/main/java" />
+
+        <!--设置生成的映射文件 在哪文件夹下
+            targetPackage="mappers" 那个文件夹下
+            targetProject="src/main/resources" 该文件夹的路径
+         -->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources" />
+
+
+        <!--设置生成接口 在那个文件夹下
+          -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kaishengit.mappers" targetProject="src/main/java" />
+
+
+        <!--
+            生成那个表格 可以写多个
+            tableName="t_student" 表明
+            domainObjectName="Student" 绝对领域 设置在java的名
+         -->
+        <table tableName="t_student"   domainObjectName="Student" />
+    </context>
+
+</generatorConfiguration>
