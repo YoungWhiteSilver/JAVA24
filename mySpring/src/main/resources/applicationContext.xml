@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--把Java类放入Spring容器里,放入Spring容器里的类默认为
+        单利模式
+
+        id：bean在容器里的名字，不能重复
+
+        name：bean在容器里的名字，不能和
+        id同时出现，可以起多个名字，每个
+        名字以“，”隔开。eg：name="userDao,user"
+
+        scope="singleton" 默认为singleton，为单例模式；
+        在spring容器加载时（即读取配置文件）会将容器内的
+        类实例化出来。
+        scope="prototype" 每次从容器中中获取的对象都是
+        new出来了，每次在调用getBean（）时，创建对象。
+
+        lazy-init="true" 懒加载：调用getBean（）时，创
+        建对象。
+
+        <bean id="userDao" class="com.kaishengit.dao.UserDao" scope="singleton"   lazy-init="true"/>
+    -->
+    <bean id="userDao" class="com.kaishengit.dao.UserDao" scope="singleton" />
+
+    <!--set注入配置-->
+    <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl">
+        <!--对象 set注入
+            name="userDao" 名字为set的方法名去set后加上小写
+            ref="userDao" 名字为对象bean的Id
+        -->
+        <property name="userDao" ref="userDao" />
+
+        <!--Integer set注入-->
+        <property name="age" value="10001" />
+
+        <!--String set注入-->
+        <property name="name" value="Hello" />
+
+        <!--List set注入-->
+        <property name="userDaoList">
+            <list>
+                <ref bean="userDao" />
+                <!--如果lsit的泛型是基本的话，用values-->
+            </list>
+        </property>
+
+        <!--Set set注入-->
+        <property name="userDaoSet">
+            <set>
+                <ref bean="userDao" />
+            </set>
+        </property>
+
+        <!--Map set注入-->
+        <property name="map">
+            <map>
+
+            </map>
+        </property>
+
+        <!--Properties set注入-->
+        <property name="properties">
+            <props>
+                <prop key="k1">v1</prop>
+                <prop key="k2">v2</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
