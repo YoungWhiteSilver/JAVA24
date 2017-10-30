@@ -4,27 +4,26 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <bean id="aopAdvice" class="com.kaishengit.aop.AopAdvice"/>
+<bean id="aopAdvice" class="com.kaishengit.aop.AopAdvice"/>
 
-    <bean id="userDao" class="com.kaishengit.dao.UserDao" />
+<bean id="userDao" class="com.kaishengit.dao.UserDao" />
 
     <bean id="userService" class="com.kaishengit.service.impl.UserServiceAopImpl">
-        <property name="userDao" ref="userDao" />
+    <property name="userDao" ref="userDao" />
     </bean>
 
     <aop:config>
-        <aop:aspect ref="aopAdvice">
-            <aop:pointcut id="pointcut" expression="execution(* com.kaishengit.service..*(..))" />
-            <aop:before method="beforeAdvice" pointcut-ref="pointcut" />
-            <!--当方法存在返回值时，可以在后置通知里接收，并处理 在这里需要加上 returning="res"-->
-            <aop:after-returning method="afterReturning" pointcut-ref="pointcut" returning="res"/>
-            <aop:after-throwing method="afterThrowing" pointcut-ref="pointcut" />
-            <!--环绕通知-->
-            <aop:around method="aroundAdvice" pointcut-ref="pointcut" />
-        </aop:aspect>
+    <aop:aspect ref="aopAdvice">
+        <aop:pointcut id="pointcut" expression="execution(* com.kaishengit.service..*(..))" />
+        <aop:before method="beforeAdvice" pointcut-ref="pointcut" />
+        <!--当方法存在返回值时，可以在后置通知里接收，并处理 在这里需要加上 returning="res"-->
+        <aop:after-returning method="afterReturning" pointcut-ref="pointcut" returning="res"/>
+        <aop:after-throwing method="afterThrowing" pointcut-ref="pointcut" />
+        <!--环绕通知-->
+        <aop:around method="aroundAdvice" pointcut-ref="pointcut" />
+    </aop:aspect>
     </aop:config>
-
 </beans>
