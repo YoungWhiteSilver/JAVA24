@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDao" class="com.kaishengit.dao.UserDao" />
+
+    <!-- 构造方法注入-->
+    <!--<bean id="userService" class="com.kaishengit.service.impl.UserServiceConstructorIOCImpl">-->
+        <!--<constructor-arg name="userDao" ref="userDao" />-->
+    <!--</bean>-->
+
+    <!-- 自动注入
+
+        autowire="byName" 基于set注入，通过set方法名（去掉set首字母小写）从bean里查找！如果是构造方法注入，可能会出错！（空指针异常）
+        autowire="byType" 基于set注入，通过参数类型从bean里查找
+
+        autowire="constructor" 构造方法自动注入 先根据构造方法参数名，没找到，再根据参数类型荣spring中查找
+    -->
+    <bean id="userService" class="com.kaishengit.service.impl.UserServiceConstructorIOCImpl" autowire="constructor"/>
+
+
+</beans>

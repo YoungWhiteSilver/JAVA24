@@ -23,7 +23,7 @@
 
         <bean id="userDao" class="com.kaishengit.dao.UserDao" scope="singleton"   lazy-init="true"/>
     -->
-    <bean id="userDao" class="com.kaishengit.dao.UserDao" scope="singleton" />
+    <bean id="userDao" class="com.kaishengit.dao.UserDao" />
 
     <!--set注入配置-->
     <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl">
