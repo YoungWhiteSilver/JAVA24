@@ -44,7 +44,6 @@ public class StudentServiceTestCase extends BaseTest{
 
         studentService.insert(student);
 
-
     }
 
     @Test
