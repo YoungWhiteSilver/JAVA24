@@ -1,15 +1,6 @@
 package com.kaishengit.entity;
 
 public class Student {
-
-    public Student() {}
-
-    public Student(String stuName, Integer stuAge, String stuAddress) {
-        this.stuName = stuName;
-        this.stuAge = stuAge;
-        this.stuAddress = stuAddress;
-    }
-
     private Integer id;
 
     private String stuName;
@@ -48,17 +39,5 @@ public class Student {
 
     public void setStuAddress(String stuAddress) {
         this.stuAddress = stuAddress;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", stuName='" + stuName + '\'' +
-                ", stuAge=" + stuAge +
-                ", stuAddress='" + stuAddress + '\'' +
-                '}';
     }
 }

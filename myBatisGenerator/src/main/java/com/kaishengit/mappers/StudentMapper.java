@@ -5,11 +5,7 @@ import com.kaishengit.entity.StudentExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * @author 67675
- */
 public interface StudentMapper {
-
     long countByExample(StudentExample example);
 
     int deleteByExample(StudentExample example);

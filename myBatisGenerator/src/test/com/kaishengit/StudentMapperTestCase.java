@@ -1,9 +1,6 @@
 package com.kaishengit;
 
 import com.github.pagehelper.PageHelper;
-import com.kaishengit.entity.Student;
-import com.kaishengit.entity.StudentExample;
-import com.kaishengit.mappers.StudentMapper;
 import com.kaishengit.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
