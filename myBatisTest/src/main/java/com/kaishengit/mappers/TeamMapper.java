@@ -27,7 +27,7 @@ public interface TeamMapper {
      * 插入
      * 注解生成主键的方法
      * @Options(useCache=false)
-     *把相对的语句禁用耳机缓存
+     *把相对的语句禁用耳二级缓存
      *
      * @param team
      *
