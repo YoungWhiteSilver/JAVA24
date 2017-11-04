@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <classPathEntry location="F:/kaisheng24/kaishengDriver/mysql-connector-java-5.1.6.jar"/>
+
+    <context id="myBatis" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/mydb"
+                        userId="root" password="123456" />
+        <javaModelGenerator targetPackage="com.kaishengit.entity" targetProject="src/main/java"></javaModelGenerator>
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kaishengit.mappers" targetProject="src/main/java" />
+        <table tableName="t_class" domainObjectName="StudentClass"></table>
+    </context>
+</generatorConfiguration>
