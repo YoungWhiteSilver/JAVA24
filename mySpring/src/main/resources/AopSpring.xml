@@ -26,4 +26,5 @@
         <aop:around method="aroundAdvice" pointcut-ref="pointcut" />
     </aop:aspect>
     </aop:config>
+
 </beans>

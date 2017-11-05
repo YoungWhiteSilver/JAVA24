@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--其他必须的maven依赖外，还要添加 mybatis-spring依赖 -->
+    <!--除其他必须的maven依赖外，还要添加 mybatis-spring依赖 -->
 
 
     <!--开启自动扫面 检测注解-->

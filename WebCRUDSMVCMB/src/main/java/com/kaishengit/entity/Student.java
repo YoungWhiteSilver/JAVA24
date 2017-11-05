@@ -60,4 +60,5 @@ public class Student {
     public void setStuClass(String stuClass) {
         this.stuClass = stuClass;
     }
+
 }

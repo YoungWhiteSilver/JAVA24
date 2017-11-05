@@ -85,10 +85,13 @@ public class HelloController {
      * 当表单提交的name属性和一个对象里的属性名相同的时候，可以用该对象来作为参数列表，springmvc会自动封装
      *
      * 上传的时候： MultipartFile photo 的名字要与上传的input的name属性相同，否则需要加
-     * @PathVairable("input的name属性值")
+     *？？？（文件上传时用那个）
      *
-     * @RequestParam(name = "tag",required = false,defaultValue = "1"）
-     *required = false 当为false可以不传递该参数， defaultValue = "1" 默认值
+     * @RequestParam(name = "tag",required = false,defaultValue = "1"） 适用于url为/xxx？id=x&name=？
+     *  required = false 当为false可以不传递该参数， defaultValue = "1" 默认值
+     *
+     * @PathVairable("input的name属性值") 适用于url为/class/{className}/user/{userName}这种url
+     *
      * @param user
      * @param email
      * @param photo

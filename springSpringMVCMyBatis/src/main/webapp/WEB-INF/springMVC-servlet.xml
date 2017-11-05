@@ -11,7 +11,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
-    <!--功能强大，其中一点就是支持添加多种请求方式的注解-->
+    <!--功能强大，其中一点就是支持@GetMapping的注解-->
     <mvc:annotation-driven />
 
     <!--放行静态资源-->
