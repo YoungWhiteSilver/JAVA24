@@ -18,35 +18,31 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <%@include file="include/css.jsp" %>
+    <style>
+      
+
+    </style>
 
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" id="loginBody">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>凯盛软件</b></a>
+       <img src="/static/dist/img/apahce.jpg" class="img-circle" style="width: 50px; height: 52px; "> &nbsp;<b>凯盛软件</b>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <form method="post" id="loginForm">
             <div class="form-group has-feedback">
-                <input id="userName" name="userName" type="text" class="form-control" placeholder="Email and TEL">
+                <input id="userName" name="moblie" type="text" class="form-control" placeholder="Email and TEL" value="123">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+                <input id="password" name="password" type="password" class="form-control" placeholder="Password" value="admin">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
         </form>
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <a href="#">忘记密码</a><br>
-                    </label>
-                </div>
-            </div>
             <!-- /.col -->
-            <div class="col-offset-8 col-xs-4">
+            <div >
                 <button type="button" class="btn btn-primary btn-block btn-flat" id="loginBtn">登录</button>
             </div>
             <!-- /.col -->
@@ -83,7 +79,7 @@
             errorElement: "span",
 
             rules : {
-                userName : {
+                moblie : {
                     required : true
                 },
                 password : {
@@ -92,7 +88,7 @@
             },
 
             messages : {
-                userName : {
+                moblie : {
                     required : "请输入账号"
                 },
                 password : {
@@ -109,12 +105,12 @@
                     data : $(form).serialize(),
 
                     beforeSend : function() {
-                        $('loginBtn').text("正在验证").attr("disabled", "disabled");
+                        $('#loginBtn').text("正在验证").attr("disabled", "disabled");
                     },
 
                     success : function(json) {
                         if(json.state == "success") {
-                            window.location.href = "/home";
+                            window.location.href = "/employee";
                         } else {
                             layer.msg(json.message);
                         }

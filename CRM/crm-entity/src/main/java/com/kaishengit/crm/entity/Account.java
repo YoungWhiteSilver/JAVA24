@@ -1,6 +1,7 @@
 package com.kaishengit.crm.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -18,6 +19,26 @@ public class Account {
     private Date updateTime;
 
     private String mobile;
+
+    private List<Dept> deptList;
+
+    public Account() {}
+
+    public Account(String userName, String password, String mobile) {
+
+        this.userName = userName;
+        this.password = password;
+        this.mobile = mobile;
+
+    }
+
+    public List<Dept> getDeptList() {
+        return deptList;
+    }
+
+    public void setDeptList(List<Dept> deptList) {
+        this.deptList = deptList;
+    }
 
     public String getMobile() {
         return mobile;

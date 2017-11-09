@@ -181,7 +181,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
     <!--  =================================分=============================割=====================线================================== -->
-    <resultMap id="DeptAndAccount" type="com.kaishengit.crm.entity.Dept" extends="BaseResultMap">
+   <!-- <resultMap id="DeptAndAccount" type="com.kaishengit.crm.entity.Dept" extends="BaseResultMap">
         <collection property="accountList" ofType="Account">
             <id property="id" column="accId" />
             <result property="mobile" column="mobile" />
@@ -208,6 +208,6 @@
               t_dept.id = #{id}
           </if>
         </where>
-  </select>
+  </select>-->
 
 </mapper>

@@ -28,6 +28,16 @@ public interface AccountMapper {
 
     int updateByPrimaryKey(Account record);
 
-    Account selectByMobile(@Param("userName") String userName);
+    Account selectByMobile(@Param("mobile") String mobile);
 
+    List<Account> selectAccountAndDept(
+            @Param("start") Integer start,
+            @Param("length") Integer length,
+            @Param("deptId") Integer deptId,
+            @Param("accountName") String accountName);
+
+    Long countAllByDeptId(@Param("deptId") Integer deptId);
+
+    Long countfilte(@Param("deptId") Integer deptId,
+                    @Param("accountName") String accountName);
 }

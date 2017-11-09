@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.crm.mappers.AccountDeptMapper">
+
+    
+    <insert id="insertMany" parameterType="list">
+        INSERT INTO t_dept_account
+        (acc_id, dept_id)
+        VALUES
+        <foreach collection="accountDeptList" item="AccountDept" separator=",">
+             (#{AccountDept.accId}, #{AccountDept.deptId})
+         </foreach>
+    </insert>
+
+
+
+
+</mapper>

@@ -29,5 +29,4 @@ public interface DeptMapper {
 
     int updateByPrimaryKey(Dept record);
 
-    List<Dept> selectByPage(Integer id);
 }
