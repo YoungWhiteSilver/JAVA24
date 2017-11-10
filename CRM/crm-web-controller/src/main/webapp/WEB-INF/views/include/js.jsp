@@ -22,3 +22,8 @@
 <script src="/static/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/static/dist/js/jquery.validate.min.js"></script>
 <script src="/static/dist/js/moment.js"></script>
+<script src="/static/dist/js/timeFormat.js"></script>
+<script src="/static/plugins/editer/scripts/module.min.js"></script>
+<script src="/static/plugins/editer/scripts/hotkeys.min.js"></script>
+<script src="/static/plugins/editer/scripts/uploader.min.js"></script>
+<script src="/static/plugins/editer/scripts/simditor.min.js"></script>

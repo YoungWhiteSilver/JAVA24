@@ -73,10 +73,9 @@
 
                 <div class="panel-footer">
                     <button type="submit" class="btn btn-primary">提交</button>
-                    <a href="/" class="btn">取消</a>
+                    <a href="/employee" class="btn">取消</a>
                 </div>
             </div>
-    </div>
 
         </section>
         <!-- /.content -->

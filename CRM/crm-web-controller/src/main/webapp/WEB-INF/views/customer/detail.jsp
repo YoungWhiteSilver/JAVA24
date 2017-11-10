@@ -49,12 +49,20 @@
                     <h3 class="box-title"><i class="fa fa-id-card-o fa-lg" ></i> <strong>客户资料</strong></h3>
                     <div class="box-tools">
                         <a href="/customer/my" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> 返回</a>
-                        <button class="btn bg-purple btn-sm"><i class="fa fa-pencil"></i> 编辑</button>
-                        <button class="btn bg-orange btn-sm"><i class="fa fa-exchange"></i> 转交</button>
-                        <button class="btn bg-maroon btn-sm"><i class="fa fa-recycle"></i> 公海</button>
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</button>
+                        <a href="javascript:;" id="editCustomer" class="btn bg-purple btn-sm"><i class="fa fa-pencil"></i> 编辑</a>
+                        <a class="btn bg-orange btn-sm"><i class="fa fa-exchange"></i> 转交</a>
+                        <a class="btn bg-maroon btn-sm"><i class="fa fa-recycle"></i> 公海</a>
+                        <a class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
                     </div>
                 </div>
+
+                <c:if test="${not empty param.warning}">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>警告</strong> ${param.warning}
+                    </div>
+                </c:if>
+
                 <div class="box-body no-padding">
                     <table class="table">
                         <tr>
@@ -147,10 +155,21 @@
 <%@include file="../include/js.jsp" %>
 <script>
     $(function () {
-
+        /*=========================================格式化日期=========================================*/
         moment.locale("zh-cn");
         $("#createTime").text(moment($("#createTime").text()).format("HH:mm:ss"));
         $("#updataName").text(moment($("#updataName").text()).format("HH:mm:ss"));
+
+        /*==========================================编辑功能===========================================*/
+
+        var customerId = ${customer.id};
+
+        $("#editCustomer").click(function () {
+
+            window.location.href = "/customer/"+ customerId + "/edit";
+
+        });
+
 
     });
 </script>

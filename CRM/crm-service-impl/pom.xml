@@ -19,10 +19,23 @@
         <lang-version>3.4</lang-version>
         <guava-version>22.0</guava-version>
         <codec-version>1.9</codec-version>
+        <poi-version>3.14</poi-version>
     </properties>
     
     <dependencies>
-    
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <!--导出Excel文件 xls格式 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi-version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>

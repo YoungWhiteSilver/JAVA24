@@ -178,7 +178,7 @@ public class WebServiceImpl implements WebService {
 
         Long total = accountMapper.countAllByDeptId(deptId);
 
-        System.out.println(total);
+
 
         return total;
     }
@@ -236,10 +236,6 @@ public class WebServiceImpl implements WebService {
         PageHelper.startPage(p, 10);
         List<Customer> customerList= customerMapper.selectByPage(key, accId);
 
-        for(Customer customer: customerList) {
-            System.out.println(customer.getCreateTime());
-        }
-
         return new PageInfo<>(customerList);
     }
 
@@ -283,8 +279,6 @@ public class WebServiceImpl implements WebService {
     public void saveCustomer(Customer customer) {
 
         if(customer.getCustName() != null && customer.getMobile() != null) {
-
-            System.out.println(customer.getLevel());
 
             customerMapper.insertSelective(customer);
 

@@ -16,7 +16,7 @@
     <title>凯盛软件CRM-首页</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/static/plugins/editer/styles/simditor.css">
+
 <%@include file="../include/css.jsp" %>
     <style>
         .name-avatar {
@@ -73,7 +73,16 @@
                     <h3 class="box-title"><i class="fa fa-handshake-o fa-lg"></i> <strong>我的客户</strong></h3>
                     <div class="box-tools pull-right">
                         <button class="btn btn-success btn-sm" id="newCustomrt"><i class="fa fa-plus"></i> 新增客户</button>
-                        <button class="btn btn-primary btn-sm"><i class="fa fa-file-excel-o"></i> 导出Excel</button>
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-file-excel-o"></i> 导出Excel <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/customer/my/export.xls" class=""><strong>导出为.xls文件</strong></a></li>
+                                <li><a href="/customer/my/export.csv"><strong>导出为.csv文件</strong></a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <c:if test="${not empty param.warning}">
@@ -108,9 +117,13 @@
                         </c:forEach>
                         </tbody>
                     </table>
+
                 </div>
                 <!-- /.box-body -->
             </div>
+            <nav style="text-align: center">
+                <ul id="pagination-demo" class="pagination-sm"></ul>
+            </nav>
             <!-- /.box -->
         </section>
         <!-- /.content ★★★★★★★★ -->
@@ -197,15 +210,24 @@
 
 <!-- ./wrapper -->
 <%@include file="../include/js.jsp" %>
-<script src="/static/dist/js/timeFormat.js"></script>
-<script src="/static/plugins/editer/scripts/module.min.js"></script>
-<script src="/static/plugins/editer/scripts/hotkeys.min.js"></script>
-<script src="/static/plugins/editer/scripts/uploader.min.js"></script>
-<script src="/static/plugins/editer/scripts/simditor.min.js"></script>
+<script src="/static/dist/js/jquery.twbsPagination.min.js"></script>
 
 <script>
 
     $(function() {
+
+        /*===================================分页==============================*/
+        $('#pagination-demo').twbsPagination({
+            totalPages: ${pageInfo.pages},
+            visiblePages: 10,
+            href:"?p={{number}}",
+            first:'首页',
+            last:'末页',
+            prev:'上一页',
+            next:'下一页'
+        });
+
+
         /*================富========文===============本==========================*/
         var editor = new Simditor({
             textarea: $('#editor'),
