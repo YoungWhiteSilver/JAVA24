@@ -28,7 +28,7 @@ public interface AccountMapper {
 
     int updateByPrimaryKey(Account record);
 
-    Account selectByMobile(@Param("mobile") String mobile);
+    List<Account> selectByMobile(@Param("mobile") String mobile);
 
     List<Account> selectAccountAndDept(
             @Param("start") Integer start,

@@ -1,3 +1,4 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: 67675
@@ -27,15 +28,15 @@
         <ul class="sidebar-menu">
             <li class="header">系统功能</li>
             <!-- 客户管理 -->
-            <li class="treeview">
+            <li class="treeview ${fn:startsWith(param.menu, 'customer_') ? 'active' : ''}">
                 <a href="#">
                     <i class="fa fa-address-book-o"></i> <span>客户管理</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="/customer/my"><i class="fa fa-circle-o"></i> 我的客户</a></li>
+                <ul class="treeview-menu" >
+                    <li class="${param.menu == 'customer_my' ? 'active' : ''}"><a href="/customer/my" ><i class="fa fa-circle-o"></i> 我的客户</a></li>
                     <li><a href="/customer/public"><i class="fa fa-circle-o"></i> 公海客户</a></li>
                 </ul>
             </li>

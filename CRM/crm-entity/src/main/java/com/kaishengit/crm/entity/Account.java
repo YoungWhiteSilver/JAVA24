@@ -8,6 +8,7 @@ import java.util.List;
  * @author 67675
  */
 public class Account {
+
     private Integer id;
 
     private String userName;

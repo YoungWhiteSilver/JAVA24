@@ -68,7 +68,14 @@
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">员工管理</h3>
+
+                            
                             <div class="box-tools pull-right">
+                                <a href="javascript:;" id="delDept"></a>
+                               <%-- <button  type="button" class="btn btn-box-tool"  id="delDept">
+                                    <i class="fa fa-trash-o"></i>
+                                    删除部门
+                                </button>--%>
                                 <button  type="button" class="btn btn-box-tool" id="addEmployBtn">
                                     <i class="fa fa-plus"></i>
                                     添加员工
@@ -175,7 +182,6 @@
                     for(var i = 0; i < deptArray.length; i ++) {
                       str += deptArray[i].deptName + "&nbsp";
                     }
-
                     return str;
                 }},
                 {"data" : "mobile"},
@@ -374,6 +380,19 @@
             callback:{
                 onClick:function(event,treeId,treeNode,clickFlag){
                     /*alert(treeNode.id + treeNode.name + treeNode.pId);*/
+                    $("#delDept").html("");
+
+                    if(treeNode.id != 1) {
+
+                        var html = "<button  type=\"button\" class=\"btn btn-box-tool\"  id=\"delDeptBtn\">" +
+                            "<i class=\"fa fa-trash-o\"></i>" +
+                            " 删除部门" +
+                            "</button>";
+
+                        $("#delDept").append(html);
+
+                    }
+
                     $("#deptId").val(treeNode.id);
                     dataTable.ajax.reload();
                 }

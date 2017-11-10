@@ -102,6 +102,15 @@ public class AccountComtroller {
 
     }
 
+    /**
+     * 新增员工
+     *
+     * @param userName
+     * @param password
+     * @param mobile
+     * @param deptId
+     * @return
+     */
     @PostMapping("/new")
     @ResponseBody
     public AjaxResult newEmployee(String userName, String password, String mobile, Integer[] deptId) {
@@ -117,6 +126,17 @@ public class AccountComtroller {
             return AjaxResult.error(e.getMessage());
 
         }
+
+    }
+
+    /**
+     * 用户修改个人信息
+     * @return
+     */
+    @GetMapping("/profile")
+    public String updateAccount() {
+
+        return "employee/update";
 
     }
 

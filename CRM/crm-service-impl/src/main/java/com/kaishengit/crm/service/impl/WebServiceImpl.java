@@ -7,11 +7,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.AccountDept;
+import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.entity.Dept;
 import com.kaishengit.crm.example.AccountExample;
+import com.kaishengit.crm.example.CustomerExample;
 import com.kaishengit.crm.example.DeptExample;
 import com.kaishengit.crm.mappers.AccountDeptMapper;
 import com.kaishengit.crm.mappers.AccountMapper;
+import com.kaishengit.crm.mappers.CustomerMapper;
 import com.kaishengit.crm.mappers.DeptMapper;
 import com.kaishengit.crm.service.WebService;
 import com.kaishengit.crm.service.exception.ServiceException;
@@ -48,6 +51,10 @@ public class WebServiceImpl implements WebService {
     @Autowired
     private AccountDeptMapper accountDeptMapper;
 
+
+    @Autowired
+    private CustomerMapper customerMapper;
+
     /**
      * 登陆
      * @param moblie
@@ -62,9 +69,11 @@ public class WebServiceImpl implements WebService {
         //&& StringUtils.isNumeric(name)
         if(StringUtils.isNotEmpty(moblie) ) {
 
-            Account account = accountMapper.selectByMobile(moblie);
+            List<Account> accountList = accountMapper.selectByMobile(moblie);
 
-            if(account != null ) {
+            if(accountList != null && !accountList.isEmpty() && accountList.size() == 1) {
+
+                Account account = accountList.get(0);
 
                 String salt = Config.get("user.password.salt");
 
@@ -162,7 +171,14 @@ public class WebServiceImpl implements WebService {
 
     @Override
     public Long countAll(Integer deptId) {
+
+        if(deptId == null || PID.equals(deptId)) {
+            deptId = null;
+        }
+
         Long total = accountMapper.countAllByDeptId(deptId);
+
+        System.out.println(total);
 
         return total;
     }
@@ -172,6 +188,10 @@ public class WebServiceImpl implements WebService {
 
         Integer deptId = (Integer) map.get("deptId");
         String accountName = (String) map.get("key");
+
+        if(deptId == null || PID.equals(deptId)) {
+            deptId = null;
+        }
 
         Long filteNum = accountMapper.countfilte(deptId, accountName);
 
@@ -209,6 +229,83 @@ public class WebServiceImpl implements WebService {
         accountDeptMapper.insertMany(accountDepts);
 
     }
+
+    @Override
+    public PageInfo<Customer> myCustomer(Integer p, String key, Integer accId) {
+
+        PageHelper.startPage(p, 10);
+        List<Customer> customerList= customerMapper.selectByPage(key, accId);
+
+        for(Customer customer: customerList) {
+            System.out.println(customer.getCreateTime());
+        }
+
+        return new PageInfo<>(customerList);
+    }
+
+    /**
+     * 客户详情
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Customer customerDetail(Integer id, Integer accId) {
+
+        if(accId > 0) {
+
+            Customer customer = customerMapper.selectByPrimaryKey(id);
+
+            if(customer != null && accId.equals(customer.getAccountId()) ) {
+
+                return customer;
+
+            } else {
+
+                throw new ServiceException("客户不存在");
+
+            }
+
+        } else {
+
+            throw new ServiceException("非法账户，已报警");
+
+        }
+
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param customer
+     */
+    @Override
+    public void saveCustomer(Customer customer) {
+
+        if(customer.getCustName() != null && customer.getMobile() != null) {
+
+            System.out.println(customer.getLevel());
+
+            customerMapper.insertSelective(customer);
+
+        } else {
+
+            throw new ServiceException("姓名和手机不能为空");
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

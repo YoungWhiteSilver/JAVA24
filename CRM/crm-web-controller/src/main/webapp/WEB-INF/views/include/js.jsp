@@ -21,3 +21,4 @@
 <script src="/static/plugins/layer/layer.js"></script>
 <script src="/static/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/static/dist/js/jquery.validate.min.js"></script>
+<script src="/static/dist/js/moment.js"></script>

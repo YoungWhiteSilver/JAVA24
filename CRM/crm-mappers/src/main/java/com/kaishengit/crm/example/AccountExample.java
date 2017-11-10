@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class AccountExample {
     protected String orderByClause;
 

@@ -229,11 +229,14 @@
   </update>
     
     <!-- ============================================分斜线====================================================== -->
-    
-    <select id="selectByMobile" resultType="com.kaishengit.crm.entity.Account">
-        SELECT * FROM t_account where mobile = #{mobile}
+
+    <select id="selectByMobile" resultMap="AccountAndDept">
+        SELECT * FROM t_account
+        INNER JOIN t_dept_account ON t_dept_account.acc_id = t_account.id
+        INNER JOIN t_dept ON t_dept.id = t_dept_account.dept_id
+        where mobile = #{mobile}
     </select>
-    
+
     <resultMap id="AccountAndDept" type="com.kaishengit.crm.entity.Account" extends="BaseResultMap">
         <collection property="deptList" ofType="com.kaishengit.crm.entity.Dept">
             <id property="id" column="deptID" />

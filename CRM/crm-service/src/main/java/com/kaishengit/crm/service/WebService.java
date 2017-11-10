@@ -2,6 +2,7 @@ package com.kaishengit.crm.service;
 
 import com.github.pagehelper.PageInfo;
 import com.kaishengit.crm.entity.Account;
+import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.entity.Dept;
 
 import java.util.List;
@@ -38,11 +39,53 @@ public interface WebService {
      */
     List<Account> findAccountAndDept(Map<String, Object> map);
 
+    /**
+     * 计算出总条数
+     * @param deptId
+     * @return
+     */
     Long countAll(Integer deptId);
 
+    /**
+     * 计算过滤后的查询条数
+     * @param map
+     * @return
+     */
     Long countfilte(Map<String, Object> map);
 
+    /**
+     * 添加·员工
+     * @param userName
+     * @param password
+     * @param mobile
+     * @param deptIds
+     */
     void saveEmployee(String userName, String password, String mobile, Integer[] deptIds);
+
+
+    /**
+     * 我的客户
+     * @param p
+     * @param key
+     * @param accId
+     * @return
+     */
+    PageInfo<Customer> myCustomer(Integer p, String key, Integer accId);
+
+
+    /**
+     * 客户详情
+     * @param id
+     * @param accId
+     * @return
+     */
+    Customer customerDetail(Integer id, Integer accId);
+
+    /**
+     * 保存用户
+     * @param customer
+     */
+    void saveCustomer(Customer customer);
 
 //    PageInfo<Dept> homePage(Integer p, Integer id);
 }
