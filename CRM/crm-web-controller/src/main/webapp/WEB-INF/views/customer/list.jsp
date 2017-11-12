@@ -86,9 +86,9 @@
                     </div>
                 </div>
                 <c:if test="${not empty param.warning}">
-                    <div class="alert alert-warning alert-dismissible" role="alert">
+                    <div class="alert alert-info alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>警告</strong> ${param.warning}
+                    <strong>提示：</strong> ${param.warning}
                     </div>
                 </c:if>
                 <div class="box-body no-padding">

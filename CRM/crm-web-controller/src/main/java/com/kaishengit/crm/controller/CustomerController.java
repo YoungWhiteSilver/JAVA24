@@ -68,7 +68,7 @@ public class CustomerController extends BaseController{
 
             Customer customer = webService.customerDetail(id, accId);
             model.addAttribute("customer", customer);
-
+            model.addAttribute("accountList", webService.findAllEmployee());
             return "customer/detail";
 
         } catch (ServiceException e) {
@@ -188,7 +188,32 @@ public class CustomerController extends BaseController{
 
     }
 
+    /**
+     * 转让客户
+     * @return
+     */
+    @GetMapping("/my/{customerId:\\d+}/transfer/{toAccountId:\\d+}")
+    public String transferCustomer(@PathVariable Integer customerId,
+                                  @PathVariable Integer toAccountId,
+                                   HttpSession session,
+                                   RedirectAttributes redirectAttributes) {
 
+        Account account = getAccount("curr_account", session);
+
+        try{
+
+            customerService.transferCustomer(customerId, toAccountId, account);
+            redirectAttributes.addAttribute("warning","转让成功");
+
+        } catch (ServiceException e) {
+
+            e.printStackTrace();
+            redirectAttributes.addAttribute("warning", e.getMessage());
+
+        }
+
+        return "redirect:/customer/my";
+    }
 
 
 

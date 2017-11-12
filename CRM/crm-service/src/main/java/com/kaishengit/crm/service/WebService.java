@@ -87,5 +87,12 @@ public interface WebService {
      */
     void saveCustomer(Customer customer);
 
+    /**
+     * 查找所有的员工
+     * @return
+     */
+    List<Account> findAllEmployee();
+
+
 //    PageInfo<Dept> homePage(Integer p, Integer id);
 }

@@ -37,4 +37,12 @@ public interface CustomerService {
      * @throws IOException
      */
     void exportExcelXls(OutputStream outputStream, Account account) throws IOException;
+
+    /**
+     * 转让客户
+     * @param customerId
+     * @param toAccountId
+     * @param account
+     */
+    void transferCustomer(Integer customerId, Integer toAccountId, Account account);
 }

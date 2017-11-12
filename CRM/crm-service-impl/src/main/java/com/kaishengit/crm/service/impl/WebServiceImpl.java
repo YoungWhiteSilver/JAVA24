@@ -290,16 +290,17 @@ public class WebServiceImpl implements WebService {
 
     }
 
+    /**
+     * 查找所有的员工
+     *
+     * @return
+     */
+    @Override
+    public List<Account> findAllEmployee() {
 
+        return accountMapper.selectByExample(new AccountExample());
 
-
-
-
-
-
-
-
-
+    }
 
 
 }

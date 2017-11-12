@@ -7,7 +7,6 @@ import com.kaishengit.crm.mappers.CustomerMapper;
 import com.kaishengit.crm.service.CustomerService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,7 +14,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.nio.ch.IOUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -143,6 +141,31 @@ public class CustomerServiceImpl implements CustomerService{
 
         outputStream.flush();
         outputStream.close();
+
+    }
+
+    /**
+     * 转让客户
+     *  @param customerId
+     * @param toAccountId
+     * @param account
+     */
+    @Override
+    public void transferCustomer(Integer customerId, Integer toAccountId, Account account) {
+
+        Customer customer = customerMapper.selectByPrimaryKey(customerId);
+
+        if(customer != null && customer.getAccountId().equals(account.getId())) {
+
+            customer.setAccountId(toAccountId);
+
+            customerMapper.updateByPrimaryKeySelective(customer);
+
+        } else {
+
+            throw new ServiceException("你的权限不足");
+
+        }
 
     }
 
