@@ -2,9 +2,12 @@ package com.kaishengit.crm.service;
 
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
+import com.kaishengit.crm.entity.SaleChance;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  *
@@ -45,4 +48,13 @@ public interface CustomerService {
      * @param account
      */
     void transferCustomer(Integer customerId, Integer toAccountId, Account account);
+
+
+    /**
+     * 查找登陆员工的所有客户，
+     * @param account
+     * @return
+     */
+    List<Customer> findAllByAccountId(Account account);
+
 }

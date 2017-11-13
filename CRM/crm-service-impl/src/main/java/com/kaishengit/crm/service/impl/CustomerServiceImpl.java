@@ -2,6 +2,7 @@ package com.kaishengit.crm.service.impl;
 
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
+import com.kaishengit.crm.entity.SaleChance;
 import com.kaishengit.crm.example.CustomerExample;
 import com.kaishengit.crm.mappers.CustomerMapper;
 import com.kaishengit.crm.service.CustomerService;
@@ -166,6 +167,19 @@ public class CustomerServiceImpl implements CustomerService{
             throw new ServiceException("你的权限不足");
 
         }
+
+    }
+
+    /**
+     * 查找登陆员工的所有客户，
+     *
+     * @param account
+     * @return
+     */
+    @Override
+    public List<Customer> findAllByAccountId(Account account) {
+
+        return findAllCustomerByAccountId(account);
 
     }
 
