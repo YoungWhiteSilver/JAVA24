@@ -7,7 +7,7 @@ import java.util.List;
 import com.kaishengit.crm.example.SaleChanceRecordExample;
 import org.apache.ibatis.annotations.Param;
 
-public interface SaleChaceRecordMapper {
+public interface SaleChanceRecordMapper {
     long countByExample(SaleChanceRecordExample example);
 
     int deleteByExample(SaleChanceRecordExample example);

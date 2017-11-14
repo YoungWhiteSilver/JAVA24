@@ -110,7 +110,12 @@
                                 <td><span class="name-avatar">${customer.custName.charAt(0)}</span></td>
                                 <td>${customer.custName}</td>
                                 <td>${customer.jobTitle}</td>
-                                <td class="time">${customer.createTime}</td>
+                                <c:if test="${not empty customer.updateName}">
+                                    <td class="time">${customer.updateName}</td>
+                                </c:if>
+                                <c:if test="${empty customer.updateName}">
+                                    <td>暂无跟进记录</td>
+                                </c:if>
                                 <td class="star">${customer.level}</td>
                                 <td><i class="fa fa-phone"></i> ${customer.mobile} <br></td>
                             </tr>

@@ -20,6 +20,7 @@
         <guava-version>22.0</guava-version>
         <codec-version>1.9</codec-version>
         <poi-version>3.14</poi-version>
+        <quartz-version>2.2.1</quartz-version>
     </properties>
     
     <dependencies>
@@ -85,7 +86,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-    
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -101,7 +107,19 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j-version}</version>
         </dependency>
-        
+
+        <!--Quartz 任务调度-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>${quartz-version}</version>
+        </dependency>
+
     </dependencies>
     
     

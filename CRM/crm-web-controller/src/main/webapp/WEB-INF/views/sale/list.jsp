@@ -54,6 +54,9 @@
                         </button>
                     </div>
                 </div>
+                <c:if test="${not empty message}">
+                    ${message}
+                </c:if>
                 <div class="box-body">
                     <table class="table table-hover">
                         <thead>
@@ -74,38 +77,27 @@
 
                             <c:if test="${empty message}">
                                 <c:forEach items="${saleChanceList}" var="saleChance">
-                                    <c:choose>
-                                        <c:when test="${saleChance.progress == '暂时搁置'}">
-                                            <tr class="danger">
-                                                <td>${saleChance.name}</td>
-                                                <td>${saleChance.customer.custName}</td>
-                                                <td>${saleChance.worth}</td>
-                                                <td>${saleChance.progress}</td>
-                                                <td>${saleChance.lastTime}</td>
-                                                <td>****</td>
-                                            </tr>
-                                        </c:when>
-                                        <c:when test="${saleChance.progress == '成交'}">
-                                            <tr class="success">
-                                                <td>${saleChance.name}</td>
-                                                <td>${saleChance.customer.custName}</td>
-                                                <td>${saleChance.worth}</td>
-                                                <td>${saleChance.progress}</td>
-                                                <td>${saleChance.lastTime}</td>
-                                                <td>****</td>
-                                            </tr>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <tr>
-                                                <td>${saleChance.name}</td>
-                                                <td>${saleChance.customer.custName}</td>
-                                                <td>${saleChance.worth}</td>
-                                                <td>${saleChance.progress}</td>
-                                                <td>${saleChance.lastTime}</td>
-                                                <td>****</td>
-                                            </tr>
-                                        </c:otherwise>
-                                    </c:choose>
+
+                                        <tr class="saleChanceDetail" rel="${saleChance.id}">
+                                            <td>${saleChance.name}</td>
+                                            <td>${saleChance.customer.custName}</td>
+                                            <td>${saleChance.worth}</td>
+
+                                            <c:choose>
+                                                <c:when test="${saleChance.progress == '暂时搁置'}">
+                                                    <td class="danger">${saleChance.progress}</td>
+                                                </c:when>
+                                                <c:when test="${saleChance.progress == '成交'}">
+                                                    <td class="success">${saleChance.progress}</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>${saleChance.progress}</td>
+                                                </c:otherwise>
+                                         </c:choose>
+
+                                        <td>${saleChance.lastTime}</td>
+                                        <td>****</td>
+                                    </tr>
                                 </c:forEach>
                             </c:if>
 
@@ -131,7 +123,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="addSaleChanceForm" method="post">
+                    <form id="addSaleChanceForm" method="post" action="/sale/my/new">
 
                         <div class="input-group margin-bottom-sm">
                             <span class="input-group-addon"><i class="fa fa-crosshairs fa-lg"></i></span>
@@ -170,12 +162,11 @@
                         <br>
 
                         <input type="hidden" class="hidden" name="accountId" value="${sessionScope.curr_account.id}">
-
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" id="addSaleChanceBtn">保存</button>
+                    <button type="submit" class="btn btn-primary" id="addSaleChanceBtn">保存</button>
                 </div>
             </div>
         </div>
@@ -193,20 +184,30 @@
 
 <script>
     $(function () {
-        /*===============================modal框 添加机会=================================*/
-        $("#addSaleChanceModalBtn").click(function () {
-            $("#addSaleChanceModal").modal({
-                show : true,
-                backdrop:'static'
-            });
+
+        /*===============================机会    详情=================================*/
+        $(".saleChanceDetail").click(function () {
+
+            var id = $(this).attr("rel");
+            window.location.href = "/sale/my/detail?saleId="+ id;
+
         });
+
+        /*===============================modal框 添加机会=================================*/
 
         var editor = new Simditor({
             textarea: $('#editor'),
             toolbar: [
                 'bold',
-                'color'
+                'color',
             ]
+        });
+
+        $("#addSaleChanceModalBtn").click(function () {
+            $("#addSaleChanceModal").modal({
+                show : true,
+                backdrop:'static'
+            });
         });
 
         $("#addSaleChanceBtn").click(function () {
@@ -244,17 +245,18 @@
                     max : "最大允许12位"
                 }
             },
+
             submitHandler : function (form) {
                 $.ajax({
                     url : "/sale/my/new",
-                    type : "post",
+                    type : "POST",
                     data : $(form).serialize(),
-                    befroSend : function () {
+                    beforeSend : function () {
                         $("#addSaleChanceModalBtn").text("正在提交").attr("disabled","disabled");
                     },
                     success : function (json) {
-                        if(json.state = "success") {
-                            $("#addEmployeeModel").modal('hide');
+                        if(json.state == "success") {
+                            $("#addSaleChanceModal").modal('hide');
                             history.go(0);
                             layer.msg("保存成功");
                         } else {
@@ -265,13 +267,13 @@
                         layer.msg("服务器跑了，正在追。。。。");
                     } ,
                     complete : function () {
-                        $("#addSaleChanceModalBtn").text("保存").removeAttr("disabled");
-                    }
 
-                })
+                       $("#addSaleChanceModalBtn").text("保存").removeAttr("disabled");
+                   }
+
+                });
             }
         });
-
         /*===============================modal框 添加机会=======结束==========================*/
 
         /*===============================动态的获取输入价值的指并转换为中文表示=================================*/
@@ -283,8 +285,8 @@
             var j = 0;
             var newText = [];
             for(var i = newWorth.length - 1; i >= 0; i --) {
-
-                var num = chinese(newWorth[i]);
+                //九万八千
+                num  = chinese(newWorth[i]);
 
                 if(j == 1 || (j % 4) == 1) {
                     newText.push("十");

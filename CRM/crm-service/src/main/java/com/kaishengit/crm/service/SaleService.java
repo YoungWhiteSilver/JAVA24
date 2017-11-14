@@ -32,4 +32,21 @@ public interface SaleService {
      * @param account
      */
     void newSaleChance(SaleChance saleChance, Account account);
+
+    /**
+     * 查询详情通过Id
+     * @param saleId
+     * @param account
+     * @return
+     */
+    SaleChance findById(Integer saleId, Account account);
+
+    /**
+     * 修改跟进进度
+     * @param saleChanceId
+     * @param progress
+     * @param account
+     */
+    void updateProgess(Integer saleChanceId, String progress, Account account);
+
 }
