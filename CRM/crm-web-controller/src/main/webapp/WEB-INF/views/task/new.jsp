@@ -65,7 +65,6 @@
             </div>
             <!-- /.box -->
 
-
         </section>
         <!-- /.content -->
     </div>
@@ -79,10 +78,9 @@
 <%@include file="../include/js.jsp"%>
 <script src="/static/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/static/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="/static/plugins/moment/moment.js"></script>
 <script src="/static/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-<script src="/static/plugins/validate/jquery.validate.min.js"></script>
+
 <script>
     $(function () {
         var picker = $('#datepicker').datepicker({
@@ -128,6 +126,33 @@
                 finishTime:{
                     required:"请选择完成时间"
                 }
+            },
+            submitHandler : function (form) {
+                $.ajax({
+                    url : "/task/new",
+                    type : "post",
+                    data : $(form).serialize(),
+                    beforeSend : function () {
+                        $("#saveBtn").text("正在提交").attr("disabled","disabled");
+                    },
+                    success : function (json) {
+
+                        if(json.state == "success") {
+
+                            window.location.href="/task";
+                            layer.msg("保存成功");
+
+                        } else {
+                            layer.msg(json.message);
+                        }
+                    },
+                    error : function () {
+                        layer.msg("服务器跑了，正在追。。。。");
+                    } ,
+                    complete : function () {
+                        $("#saveBtn").text("保存").removeAttr("disabled");
+                    }
+                })
             }
         });
     });

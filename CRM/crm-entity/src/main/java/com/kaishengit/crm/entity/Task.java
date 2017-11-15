@@ -1,6 +1,7 @@
 package com.kaishengit.crm.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.sql.Timestamp;
 
 /**
@@ -11,14 +12,15 @@ public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
+
     private Integer id;
 
-    private Timestamp finishTime;
+    private Date finishTime;
 
     /**
      * 提醒时间
      */
-    private Timestamp remindTime;
+    private Date remindTime;
 
     /**
      * 是否完成，0：未完成
@@ -34,7 +36,7 @@ public class Task implements Serializable {
     /**
      * 创建时间
      */
-    private Timestamp createTime;
+    private Date createTime;
 
     private String title;
 
@@ -88,27 +90,27 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public Timestamp getFinishTime() {
+    public Date getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Timestamp finishTime) {
+    public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
     }
 
-    public Timestamp getRemindTime() {
+    public Date getRemindTime() {
         return remindTime;
     }
 
-    public void setRemindTime(Timestamp remindTime) {
+    public void setRemindTime(Date remindTime) {
         this.remindTime = remindTime;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 }

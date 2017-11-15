@@ -136,7 +136,7 @@
       #{saleId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.crm.entity.Task">
+  <insert id="insertSelective" parameterType="com.kaishengit.crm.entity.Task" useGeneratedKeys="true" keyProperty="id">
     insert into t_task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

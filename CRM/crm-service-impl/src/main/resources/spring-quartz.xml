@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--将job放入spring容器中-->
+    <bean id="springQuartzJob" class="com.kaishengit.crm.service.jobs.RpringQuartzJob"/>
+
+    <!--定义jobDetail 让spring知去执行那个类中的那个方法-->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--配置job类 使用spring配置的Job不需要实现Job接口-->
+        <property name="targetObject" ref="springQuartzJob"/>
+
+        <!--配置job类中的任务方法-->
+        <property name="targetMethod" value="doSomething"/>
+    </bean>
+    <!--==========以上使用spring的quartz的配置================-->
+
+    <bean id="quartzJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!--定义为循环任务-->
+        <property name="durability" value="true" />
+        <!--Quartz job的实现类得完全限定名 该类需要实现Job接口-->
+        <property name="jobClass" value="com.kaishengit.crm.service.jobs.QuartzJob" />
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="accountId" value="9000" />
+            </map>
+        </property>
+    </bean>
+
+    <!--==========以上为使用quertz的框架的自己的配置=====二选一，根据需要===========-->
+
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--定义JobDetail 让触发器调度的JobDetail-->
+        <property name="jobDetail" ref="quartzJob" />
+        <!--Cron 表达式 为JobDetail的一次执行时间或多次执行间隔的时间-->
+        <property name="cronExpression" value="0/5 * * * * ? *" />
+    </bean>
+    <!--==========以上为配置Trigger（触发器） 触发器由调度器来来调度 ===========-->
+
+<!--=========================到此以上所有为配置Job 和Trigger 为固定任务（不能动态的添加）==================================================-->
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!--配置数据库连接池， 在模块Mapper中已经配置了，所以可以直接拿来用-->
+        <property name="dataSource" ref="basicDataSource" />
+
+        <!--配置事务管理器， 同样在模块Mpper中也有该配置，可以直接拿来用-->
+        <property name="transactionManager" ref="transactionManager" />
+
+        <!--加载quertz.properties文件的配置-->
+        <property name="configLocation" value="classpath:quartz.properties" />
+
+        <!--是否覆盖数据库中已有的任务-->
+        <property name="overwriteExistingJobs" value="true" />
+
+        <!--配置触发器，当为动态添加时，该配置可省略-->
+        <!--<property name="triggers">
+            <list>
+                <ref bean="cronTrigger" />
+            </list>
+        </property>-->
+    </bean>
+<!-- ===================================
+                     以上为配置调度器，当没有配置数据库连接池的时候，这些任务都是在内存里的，
+                     在内容中随之tomcat关闭而死亡，不会持久化！
+                                    =======================================-->
+
+
+
+
+
+
+</beans>
