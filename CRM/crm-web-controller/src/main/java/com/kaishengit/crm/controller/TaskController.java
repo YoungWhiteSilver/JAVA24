@@ -1,6 +1,7 @@
 package com.kaishengit.crm.controller;
 
 import com.google.common.collect.Maps;
+import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Task;
 import com.kaishengit.crm.service.TaskService;
 import com.kaishengit.crm.service.exception.ServiceException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -20,25 +22,32 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/task")
-public class TaskController {
+public class TaskController extends BaseController{
 
     @Autowired
     private TaskService taskService;
 
+    private static final String USER = "curr_account";
 
     @GetMapping
-    public String toList(Model model) {
+    public String toList(@RequestParam(required = false) Integer show,
+                         HttpSession session,
+                         Model model) {
 
-
+        Account account = getAccount(USER, session);
+        model.addAttribute("taskList", taskService.findAll(show, account));
 
         return "task/list";
 
     }
 
+
+
     @GetMapping("/new")
     public String addTask() {
 
         return "task/new";
+
     }
 
     @PostMapping("/new")

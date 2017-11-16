@@ -1,6 +1,11 @@
 package com.kaishengit.crm.entity;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -113,4 +118,50 @@ public class Task implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+
+    /**
+     * 判断是否逾期
+     * true 正常， false 逾期
+     * @return
+     */
+    public boolean isOverTime() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(getFinishTime());
+
+        DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTime finishTime = format.parseDateTime(date);
+
+        return  finishTime.isAfterNow();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

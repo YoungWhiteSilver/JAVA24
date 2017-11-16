@@ -1,5 +1,6 @@
 package com.kaishengit.crm.service;
 
+import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Task;
 
 import java.text.ParseException;
@@ -29,4 +30,13 @@ public interface TaskService {
      */
     void addTask(Map<String, Object> map);
 
+
+    /**
+     * 当shouw = 0时 查找未完成的
+     * 当show = null 时，查找所有
+     * @param show
+     * @param account
+     * @return
+     */
+    List<Task> findAll(Integer show, Account account);
 }

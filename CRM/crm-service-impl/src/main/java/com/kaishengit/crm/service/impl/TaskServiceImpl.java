@@ -1,5 +1,6 @@
 package com.kaishengit.crm.service.impl;
 
+import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Task;
 import com.kaishengit.crm.example.TaskExample;
 import com.kaishengit.crm.mappers.TaskMapper;
@@ -153,22 +154,36 @@ public class TaskServiceImpl implements TaskService{
 
     }
 
+    /**
+     * 当shouw = 0时 查找未完成的
+     * 当show = null 时，查找所有
+     *
+     * @param show
+     * @return
+     */
+    @Override
+    public List<Task> findAll(Integer show, Account account) {
+
+        TaskExample taskExample = new TaskExample();
+
+        if(show != null && show == 0) {
+
+            taskExample.createCriteria().andDoneEqualTo(show);
+        }
+
+        taskExample.createCriteria().andAccountIdEqualTo(account.getId());
+        List<Task> taskList = taskMapper.selectByExampleWithBLOBs(taskExample);
+
+        for(Task task: taskList) {
+
+            System.out.println("<-===========================->" + task.getTitle());
+
+        }
 
 
+        return taskList;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
