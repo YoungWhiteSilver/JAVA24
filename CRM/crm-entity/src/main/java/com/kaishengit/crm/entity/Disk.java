@@ -33,7 +33,7 @@ public class Disk implements Serializable {
     /**
      * 文件大小
      */
-    private Integer fileSize;
+    private String fileSize;
 
     private Integer pId;
 
@@ -90,11 +90,11 @@ public class Disk implements Serializable {
         this.saveName = saveName;
     }
 
-    public Integer getFileSize() {
+    public String getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Integer fileSize) {
+    public void setFileSize(String fileSize) {
         this.fileSize = fileSize;
     }
 

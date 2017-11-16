@@ -2,6 +2,7 @@ package com.kaishengit.crm.service;
 
 import com.kaishengit.crm.entity.Disk;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -28,5 +29,24 @@ public interface DiskService {
      * @return
      */
     List<Disk> findAll(Integer pId);
+
+    /**
+     * 根据ID查询
+     * @param Id
+     * @return
+     */
+    Disk findByPid(Integer Id);
+
+
+    /**
+     * 上传文件
+     *
+     * @param inputStream
+     * @param fileSize
+     * @param fileName
+     * @param pId
+     * @param accountId
+     */
+    void saveFile(InputStream inputStream, Long fileSize, String fileName, Integer pId, Integer accountId);
 
 }
