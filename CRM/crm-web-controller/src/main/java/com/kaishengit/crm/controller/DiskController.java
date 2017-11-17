@@ -4,6 +4,8 @@ import com.kaishengit.crm.entity.Disk;
 import com.kaishengit.crm.service.DiskService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.utils.AjaxResult;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -11,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -69,6 +74,15 @@ public class DiskController {
 
     }
 
+    /**
+     * 文件上传
+     *
+     *  @param pId
+     * @param accountId
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/upload")
     @ResponseBody
     public AjaxResult uploadFile(Integer pId, Integer accountId, MultipartFile file) throws IOException {
@@ -95,6 +109,43 @@ public class DiskController {
             e.printStackTrace();
             return AjaxResult.error(e.getMessage());
         }
+    }
+
+    @GetMapping("/download")
+    public void downloadFile(@RequestParam(name = "_", required = false, defaultValue = "0") Integer id,
+                             @RequestParam(required = false, defaultValue = "") String fileName,
+                             HttpServletResponse response) {
+
+
+        try {
+
+            OutputStream outputStream = response.getOutputStream();
+            InputStream inputStream = diskService.downloadFile(id);
+
+            if(StringUtils.isNotEmpty(fileName)) {
+
+                response.setContentType("application/octet-stream");
+                fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+                //设置下载框里的名字
+                response.addHeader("Content-Disposition", "attachment;filename=\"" + fileName +"\"");
+
+            }
+
+            IOUtils.copy(inputStream, outputStream);
+
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ServiceException("上传出错了");
+        } catch (ServiceException e) {
+            e.printStackTrace();
+
+        }
+
+
     }
 
 

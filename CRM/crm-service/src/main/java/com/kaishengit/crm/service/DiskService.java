@@ -2,6 +2,7 @@ package com.kaishengit.crm.service;
 
 import com.kaishengit.crm.entity.Disk;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -48,5 +49,12 @@ public interface DiskService {
      * @param accountId
      */
     void saveFile(InputStream inputStream, Long fileSize, String fileName, Integer pId, Integer accountId);
+
+    /**
+     * 下载文件
+     * @param id
+     * @return
+     */
+    InputStream downloadFile(Integer id) throws IOException;
 
 }

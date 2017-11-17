@@ -25,13 +25,14 @@ import java.util.UUID;
  * @date: 2017/11/16
  */
 @Service
-public class DiskServiceImpl implements DiskService{
+public class DiskServiceImpl implements DiskService {
 
     @Value("${uploadfile.path}")
     private String saveFilePath;
 
     @Autowired
     private DiskMapper diskMapper;
+
     /**
      * 新建文件架
      *
@@ -44,7 +45,7 @@ public class DiskServiceImpl implements DiskService{
 
         Disk disk = new Disk();
 
-        if(StringUtils.isEmpty(name)) {
+        if (StringUtils.isEmpty(name)) {
             throw new ServiceException("文件夹名不能为空");
         }
 
@@ -126,7 +127,32 @@ public class DiskServiceImpl implements DiskService{
 
     }
 
+    /**
+     * 下载文件
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public InputStream downloadFile(Integer id) throws FileNotFoundException {
 
+        Disk disk = diskMapper.selectByPrimaryKey(id);
+
+        if(disk == null || disk.getType().equals(Disk.DIR)) {
+
+            throw new ServiceException("文件不存在");
+
+        }
+
+        disk.setDownloadCount(disk.getDownloadCount() + 1);
+        diskMapper.updateByPrimaryKeySelective(disk);
+
+        FileInputStream inputStream = new FileInputStream(new File(saveFilePath, disk.getSaveName()));
+
+        return inputStream;
+
+    }
 
 
 }
