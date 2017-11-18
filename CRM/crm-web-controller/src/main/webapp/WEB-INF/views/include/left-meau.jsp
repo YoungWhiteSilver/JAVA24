@@ -51,7 +51,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="${param.menu == 'sale_chance' ? 'active' : ''}"><a href="/sale/my/chance"><i class="fa fa-circle-o"></i> 我的记录</a></li>
-                    <li><a href="/recode/public"><i class="fa fa-circle-o"></i> 公共记录</a></li>
+                    <%--<li><a href="/recode/public"><i class="fa fa-circle-o"></i> 公共记录</a></li>--%>
                 </ul>
             </li>
             <!-- 待办事项 -->

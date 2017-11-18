@@ -122,7 +122,7 @@
                         <small><button id="showRecordModalBtn" class="btn btn-success btn-xs"><i class="fa fa-plus"></i></button></small>
                     </h4>
                     <ul class="timeline">
-                        <c:if test="${empty record.content}">
+                        <c:if test="${empty RecordList}">
                             <li>
                                 <!-- timeline icon -->
                                 <i class="fa fa-circle-o bg-red"></i>

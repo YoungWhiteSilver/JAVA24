@@ -5,6 +5,7 @@ import com.kaishengit.crm.example.DiskExample;
 import com.kaishengit.crm.mappers.DiskMapper;
 import com.kaishengit.crm.service.DiskService;
 import com.kaishengit.crm.service.exception.ServiceException;
+import com.kaishengit.crm.service.fileUpAndDown.FileUploadAndDownload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.util.Date;
 import java.util.List;
@@ -27,11 +29,12 @@ import java.util.UUID;
 @Service
 public class DiskServiceImpl implements DiskService {
 
-    @Value("${uploadfile.path}")
-    private String saveFilePath;
 
     @Autowired
     private DiskMapper diskMapper;
+
+    @Resource(name = "fileUploadAndDownloadFastDFS")
+    private FileUploadAndDownload fileUploadAndDownload;
 
     /**
      * 新建文件架
@@ -108,21 +111,18 @@ public class DiskServiceImpl implements DiskService {
         disk.setName(fileName);
 
         disk.setFileSize(FileUtils.byteCountToDisplaySize(fileSize));
-
-        String newFileName = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf("."));
-
-        disk.setSaveName(newFileName);
+        String newFileName = "";
 
         try {
 
-            FileOutputStream outputStream = new FileOutputStream(new File(saveFilePath, newFileName));
-            IOUtils.copy(inputStream, outputStream);
+            newFileName = fileUploadAndDownload.fileUpload(inputStream, fileName);
 
         } catch (IOException e) {
             e.printStackTrace();
             throw new ServiceException("文件上传异常");
         }
 
+        disk.setSaveName(newFileName);
         diskMapper.insertSelective(disk);
 
     }
@@ -147,10 +147,16 @@ public class DiskServiceImpl implements DiskService {
 
         disk.setDownloadCount(disk.getDownloadCount() + 1);
         diskMapper.updateByPrimaryKeySelective(disk);
+        byte[] bytes = null;
+        try {
+            bytes = fileUploadAndDownload.fileDownload(disk.getSaveName());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ServiceException("文件下载异常");
+        }
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-        FileInputStream inputStream = new FileInputStream(new File(saveFilePath, disk.getSaveName()));
-
-        return inputStream;
+        return byteArrayInputStream;
 
     }
 

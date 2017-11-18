@@ -1,4 +1,4 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -51,7 +51,7 @@
                         <a href="/customer/my" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> 返回</a>
                         <a href="javascript:;" id="editCustomer" class="btn bg-purple btn-sm"><i class="fa fa-pencil"></i> 编辑</a>
                         <a href="javascript:;" id="transfer" class="btn bg-orange btn-sm"><i class="fa fa-exchange"></i> 转交</a>
-                        <a class="btn bg-maroon btn-sm"><i class="fa fa-recycle"></i> 公海</a>
+                        <a href="javascript:;" id="publicCust" class="btn bg-maroon btn-sm"><i class="fa fa-recycle"></i> 公海</a>
                         <a class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> 删除</a>
                     </div>
                 </div>
@@ -120,16 +120,73 @@
                             <h3 class="box-title">跟进记录</h3>
                         </div>
                         <div class="box-body">
-
+                            <ul class="timeline">
+                                <c:if test="${empty RecordList}">
+                                    <li>
+                                        <!-- timeline icon -->
+                                        <i class="fa fa-circle-o bg-red"></i>
+                                        <div class="timeline-item">
+                                            <div class="timeline-body">
+                                                暂无跟进记录
+                                            </div>
+                                        </div>
+                                    </li>
+                                </c:if>
+                            <c:forEach items="${RecordList}" var="record">
+                                <c:choose>
+                                    <c:when test="${record.content == '将当前进度修改为 [成交]'}">
+                                        <li>
+                                            <!-- timeline icon -->
+                                            <i class="fa fa-check bg-green"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${record.createTime}"/></span>
+                                                <div class="timeline-body">
+                                                        ${record.content}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:when>
+                                    <c:when test="${record.content == '将当前进度修改为 [暂时搁置]'}">
+                                        <li>
+                                            <!-- timeline icon -->
+                                            <i class="fa fa-close bg-red"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${record.createTime}"/></span>
+                                                <div class="timeline-body">
+                                                        <%--将当前进度修改为 [暂时搁置]--%>
+                                                        ${record.content}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <!-- timeline icon -->
+                                            <i class="fa fa-info bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> <fmt:formatDate value="${record.createTime}" pattern="yyyy-MM-dd HH:mm"/></span>
+                                                <div class="timeline-body">
+                                                        ${record.content}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </ul>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4">
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">日程安排</h3>
                         </div>
                         <div class="box-body">
+
+
+
 
                         </div>
                     </div>
@@ -182,6 +239,9 @@
 <%@include file="../include/js.jsp" %>
 <script>
     $(function () {
+
+
+
         /*=========================================格式化日期=========================================*/
         moment.locale("zh-cn");
         $("#createTime").text(moment($("#createTime").text()).format("HH:mm:ss"));
@@ -197,8 +257,19 @@
 
         });
 
-        /*==========================================编辑功能===========================================*/
+        /*==========================================编辑功能结束===========================================*/
 
+       /*==========================================转交公海===========================================*/
+
+       $("#publicCust").click(function () {
+
+            layer.confirm("确定转交公海么？", function (index) {
+                layer.close(index);
+                window.location.href = "/customer/" + customerId + "/public";
+            })
+
+        });
+        /*==========================================转交公海结束===========================================*/
         $("#transfer").click(function() {
 
             $("#chooseUserModel").modal({

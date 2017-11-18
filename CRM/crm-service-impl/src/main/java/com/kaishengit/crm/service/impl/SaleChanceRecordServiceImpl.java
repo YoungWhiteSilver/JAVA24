@@ -4,6 +4,7 @@ import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.entity.SaleChance;
 import com.kaishengit.crm.entity.SaleChanceRecord;
+import com.kaishengit.crm.example.SaleChanceExample;
 import com.kaishengit.crm.example.SaleChanceRecordExample;
 import com.kaishengit.crm.mappers.CustomerMapper;
 import com.kaishengit.crm.mappers.SaleChanceMapper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,6 +125,21 @@ public class SaleChanceRecordServiceImpl implements SaleChanceRecordService{
         customer.setUpdateName(new Timestamp(System.currentTimeMillis()));
 
         customerMapper.updateByPrimaryKeySelective(customer);
+
+    }
+
+    /**
+     * 查询跟进记录通过 客户Id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SaleChanceRecord> findAllByCustomerId(Integer id) {
+
+        List<SaleChanceRecord> saleChanceRecordList =  saleChanceRecordMapper.selectByCustId(id);
+
+        return saleChanceRecordList;
 
     }
 

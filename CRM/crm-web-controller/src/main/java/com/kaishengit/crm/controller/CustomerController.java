@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.service.CustomerService;
+import com.kaishengit.crm.service.SaleChanceRecordService;
 import com.kaishengit.crm.service.WebService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.utils.AjaxResult;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,9 @@ public class CustomerController extends BaseController{
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private SaleChanceRecordService saleChanceRecordService;
 
     @RequestMapping("/my")
     public String myCustomer(@RequestParam(required = false, defaultValue = "1") Integer p,
@@ -69,6 +74,7 @@ public class CustomerController extends BaseController{
             Customer customer = webService.customerDetail(id, accId);
             model.addAttribute("customer", customer);
             model.addAttribute("accountList", webService.findAllEmployee());
+            model.addAttribute("RecordList", saleChanceRecordService.findAllByCustomerId(id));
             return "customer/detail";
 
         } catch (ServiceException e) {
@@ -136,6 +142,7 @@ public class CustomerController extends BaseController{
                                RedirectAttributes redirectAttributes) {
 
         Account account = getAccount("curr_account", session);
+
         try{
 
             customerService.editCustomer(account.getId(), customer);
@@ -215,10 +222,31 @@ public class CustomerController extends BaseController{
         return "redirect:/customer/my";
     }
 
+    @GetMapping("/{customerId:\\d+}/public")
+    public String publicCustomer(@PathVariable Integer customerId,
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes) {
+
+        Account account = getAccount("curr_account", session);
+
+        customerService.customerPublic(customerId, account);
+        redirectAttributes.addAttribute("warning", "已经移交公海");
+        return "redirect:/customer/my";
+
+    }
 
 
+    @GetMapping("/public")
+    public String publicCustomer(@RequestParam(required = false, defaultValue = "0") Integer p, Model model) {
 
+        Account account = new Account();
+        account.setId(0);
 
+        model.addAttribute("pageInfo",  customerService.findAllByAccountIdPage(p, account));
+
+        return  "customer/public";
+
+    }
 
 
 

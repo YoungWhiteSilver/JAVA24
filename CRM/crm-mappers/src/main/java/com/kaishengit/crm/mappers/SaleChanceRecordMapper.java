@@ -29,4 +29,7 @@ public interface SaleChanceRecordMapper {
     int updateByPrimaryKeySelective(SaleChanceRecord record);
 
     int updateByPrimaryKey(SaleChanceRecord record);
+
+    List<SaleChanceRecord> selectByCustId(@Param("id") Integer id);
+
 }

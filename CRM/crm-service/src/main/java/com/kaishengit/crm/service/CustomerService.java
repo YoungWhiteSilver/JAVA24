@@ -1,5 +1,6 @@
 package com.kaishengit.crm.service;
 
+import com.github.pagehelper.PageInfo;
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.entity.SaleChance;
@@ -57,5 +58,22 @@ public interface CustomerService {
      */
     List<Customer> findAllByAccountId(Account account);
 
+
+    /**
+     * 将客户移交公海
+     *
+     * @param customerId
+     * @param account
+     */
+    void customerPublic(Integer customerId, Account account);
+
+
+    /**
+     * 查询公海客户
+     * @param p
+     * @param account
+     * @return
+     */
+    PageInfo<Customer> findAllByAccountIdPage(Integer p, Account account);
 
 }

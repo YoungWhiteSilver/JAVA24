@@ -36,4 +36,10 @@ public interface SaleChanceRecordService {
      */
     void saveRecord(Integer saleId, String content, Account account);
 
+    /**
+     * 查询跟进记录通过 客户Id
+     * @param id
+     * @return
+     */
+    List<SaleChanceRecord> findAllByCustomerId(Integer id);
 }

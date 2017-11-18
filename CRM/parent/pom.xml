@@ -27,6 +27,8 @@
         <mybatis-version>3.4.4</mybatis-version>
         <mybatis-spring-version>1.3.1</mybatis-spring-version>
         <pagehelper-version>5.0.0</pagehelper-version>
+        <commons-fileUpload-version>1.3.1</commons-fileUpload-version>
+        <fastDFS-version>1.27-SNAPSHOT</fastDFS-version>
     </properties>
     
     <dependencyManagement>
@@ -118,6 +120,19 @@
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring-version}</version>
             </dependency>
+            <!--文件下载上传依赖-->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileUpload-version}</version>
+            </dependency>
+            <!--fastDFS -->
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastDFS-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     

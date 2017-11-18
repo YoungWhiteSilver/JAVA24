@@ -1,5 +1,7 @@
 package com.kaishengit.crm.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
 import com.kaishengit.crm.entity.SaleChance;
@@ -14,8 +16,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -180,6 +184,44 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Customer> findAllByAccountId(Account account) {
 
         return findAllCustomerByAccountId(account);
+
+    }
+
+    /**
+     * 把客户移交公海
+     *
+     * @param customerId
+     */
+    @Override
+    public void customerPublic(Integer customerId, Account account) {
+
+        Customer customer = customerMapper.selectByPrimaryKey(customerId);
+
+        if(customer != null && customer.getAccountId().equals(account.getId())) {
+
+            customer.setAccountId(0);
+            customerMapper.updateByPrimaryKey(customer);
+
+        } else {
+            throw new ServiceException("权限不足");
+        }
+
+    }
+
+    /**
+     * 查询公海客户并分页
+     *
+     * @param account
+     * @return
+     */
+    @Override
+    public PageInfo<Customer> findAllByAccountIdPage(Integer p, Account account) {
+
+        PageHelper.startPage(p, 10);
+        CustomerExample customerExample = new CustomerExample();
+        customerExample.createCriteria().andAccountIdEqualTo(account.getId());
+
+        return new PageInfo<>(customerMapper.selectByExample(customerExample));
 
     }
 

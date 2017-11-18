@@ -193,4 +193,16 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!--===============================分割线===========================================-->
+  <select id="selectByCustId" resultType="com.kaishengit.crm.entity.SaleChanceRecord">
+    SELECT
+        sale_chance_record.*
+    FROM
+        sale_chance_record
+    INNER JOIN sale_chance ON sale_chance.id = sale_chance_record.sale_id
+    WHERE
+        sale_chance.cust_id = #{id}
+  </select>
+
 </mapper>

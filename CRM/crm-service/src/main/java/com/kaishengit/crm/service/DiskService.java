@@ -54,6 +54,7 @@ public interface DiskService {
      * 下载文件
      * @param id
      * @return
+     * @throws IOException
      */
     InputStream downloadFile(Integer id) throws IOException;
 
