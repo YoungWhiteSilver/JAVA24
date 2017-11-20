@@ -8,6 +8,7 @@ import com.kaishengit.crm.entity.SaleChance;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -75,5 +76,19 @@ public interface CustomerService {
      * @return
      */
     PageInfo<Customer> findAllByAccountIdPage(Integer p, Account account);
+
+    /**
+     * 查询每月客户增加的数量
+     * @return
+     */
+    List<Map<String,String>> coountByMonth();
+
+
+    /**
+     * 销售漏斗图
+     * @return
+     */
+    List<Map<String,String>> saleFunnelListByProgress();
+
 
 }

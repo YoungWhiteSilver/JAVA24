@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -223,6 +224,29 @@ public class CustomerServiceImpl implements CustomerService{
 
         return new PageInfo<>(customerMapper.selectByExample(customerExample));
 
+    }
+
+    /**
+     * 查询每月客户增加的数量
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, String>> coountByMonth() {
+
+
+        return customerMapper.countByCreateTime();
+    }
+
+    /**
+     * 销售漏斗图
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, String>> saleFunnelListByProgress() {
+
+        return customerMapper.saleFunnel();
     }
 
 

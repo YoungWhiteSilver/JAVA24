@@ -345,5 +345,24 @@
           </if>
       </where>
     </select>
-
+    
+    <select id="countByCreateTime" resultType="java.util.Map">
+        SELECT
+            COUNT(*) AS 'count',
+            MONTH (create_time) AS 'month'
+        FROM
+            t_customer
+        GROUP BY
+            MONTH (create_time);
+    </select>
+    
+    <select id="saleFunnel" resultType="java.util.Map">
+        SELECT
+            COUNT(*) as 'value',
+            progress as 'name'
+        FROM
+            sale_chance
+        GROUP BY
+            progress
+    </select>
 </mapper>

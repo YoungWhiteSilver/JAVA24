@@ -2,6 +2,7 @@ package com.kaishengit.crm.mappers;
 
 import com.kaishengit.crm.entity.Customer;
 import java.util.List;
+import java.util.Map;
 
 import com.kaishengit.crm.example.CustomerExample;
 import org.apache.ibatis.annotations.Param;
@@ -31,4 +32,9 @@ public interface CustomerMapper {
 
     List<Customer> selectByPage(@Param("key") String key,
                                 @Param("accId") Integer id);
+
+    List<Map<String,String>> countByCreateTime();
+
+    List<Map<String,String>> saleFunnel();
+
 }
