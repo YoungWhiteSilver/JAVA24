@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 67675
   Date: 2017/11/20
-  Time: 16:13
+  Time: 16:42
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,7 +18,7 @@
 <body>
 <h3>UploadFile</h3>
 <form action="http://upload-z1.qiniup.com" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="token" value="${uploadToken}">
+    <input type="hidden" name="token" value="${upToken}">
     <input type="file" name="file">
     <input type="hidden" name="x:pid" value="1009" >
     <button>上传</button>
