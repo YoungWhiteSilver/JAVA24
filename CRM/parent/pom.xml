@@ -100,7 +100,12 @@
                 <artifactId>spring-tx</artifactId>
                 <version>${spring-version}</version>
             </dependency>
-            
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring-version}</version>
+            </dependency>
             
             <!--mysql-->
             <dependency>
@@ -132,6 +137,7 @@
                 <artifactId>fastdfs-client-java</artifactId>
                 <version>${fastDFS-version}</version>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>

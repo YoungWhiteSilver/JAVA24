@@ -39,4 +39,5 @@
             <bean class="com.kaishengit.crm.controller.interceptor.LoginInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
+
 </beans>

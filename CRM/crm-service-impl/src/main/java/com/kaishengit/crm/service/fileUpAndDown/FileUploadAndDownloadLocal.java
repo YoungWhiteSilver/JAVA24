@@ -20,7 +20,6 @@ public class FileUploadAndDownloadLocal implements FileUploadAndDownload{
     @Value("${uploadfile.path}")
     private String saveFilePath;
 
-
     /**
      * 文件上传
      *

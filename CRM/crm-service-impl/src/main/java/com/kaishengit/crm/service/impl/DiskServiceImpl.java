@@ -33,7 +33,7 @@ public class DiskServiceImpl implements DiskService {
     @Autowired
     private DiskMapper diskMapper;
 
-    @Resource(name = "fileUploadAndDownloadFastDFS")
+    @Resource(name = "fileUploadAndDownloadQiniu")
     private FileUploadAndDownload fileUploadAndDownload;
 
     /**
