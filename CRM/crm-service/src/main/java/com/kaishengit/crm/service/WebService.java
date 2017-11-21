@@ -30,7 +30,7 @@ public interface WebService {
      */
     List<Dept> deptList();
 
-    void saveDept(String text);
+    void saveDept(String name);
 
     /**
      * 查找数据給DataTable插件

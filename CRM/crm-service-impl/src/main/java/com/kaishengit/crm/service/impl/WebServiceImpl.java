@@ -19,6 +19,7 @@ import com.kaishengit.crm.mappers.DeptMapper;
 import com.kaishengit.crm.service.WebService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.utils.Config;
+import com.kaishengit.weixin.CrmWeixinUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +56,9 @@ public class WebServiceImpl implements WebService {
 
     @Autowired
     private CustomerMapper customerMapper;
+
+    @Autowired
+    private CrmWeixinUtil weixinUtil;
 
     /**
      * 登陆
@@ -126,10 +131,11 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public void saveDept(String text) {
+    @Transactional(rollbackFor = Exception.class)
+    public void saveDept(String name) {
 
         DeptExample deptExample = new DeptExample();
-        deptExample.createCriteria().andDeptNameEqualTo(text);
+        deptExample.createCriteria().andDeptNameEqualTo(name);
 
         List<Dept> depts = deptMapper.selectByExample(deptExample);
 
@@ -140,9 +146,12 @@ public class WebServiceImpl implements WebService {
         }
 
         Dept dept = new Dept();
-        dept.setDeptName(text);
+        dept.setDeptName(name);
         dept.setpId(PID);
         deptMapper.insertSelective(dept);
+
+        //同步微信， 在微信端创建部门
+        weixinUtil.createDept(dept.getId(), name, PID);
 
     }
 
@@ -227,6 +236,10 @@ public class WebServiceImpl implements WebService {
         }
 
         accountDeptMapper.insertMany(accountDepts);
+
+        //同步微信，在微信也创建用户
+        weixinUtil.craeateAccount(account.getId(), userName, Arrays.asList(deptIds), mobile);
+
 
     }
 

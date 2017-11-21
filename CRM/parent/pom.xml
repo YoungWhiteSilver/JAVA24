@@ -16,6 +16,7 @@
         <module>../crm-service-impl</module>
         <module>../crm-mappers</module>
         <module>../crm-entity</module>
+        <module>../crm-weixin</module>
     </modules>
     
     <properties>
