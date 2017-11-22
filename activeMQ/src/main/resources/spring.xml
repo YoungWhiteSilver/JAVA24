@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/jms
+       http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+    <!--开启自动扫面-->
+    <context:component-scan base-package="com.kaishengit" />
+
+    <!--将ActiveMQ ConnectionFactory 放入bean-->
+    <bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616" />
+    </bean>
+
+    <!--Spring jms ConnectionFactory-->
+    <bean id="singleConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="activeMQConnectionFactory" />
+    </bean>
+
+    <!--JMSTemplate-->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!--配置连接工厂-->
+        <property name="connectionFactory" ref="singleConnectionFactory" />
+        <!--选配：目的地名称，如果没有配置，则在发送消息时指定-->
+        <property name="defaultDestinationName" value="spring-queue" />
+    </bean>
+
+    <!--配置监听器
+    <bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer" >
+
+        <property name="connectionFactory" ref="singleConnectionFactory" />
+        &lt;!&ndash;设置监听的队列&ndash;&gt;
+        <property name="destinationName" value="spring-queue" />
+        &lt;!&ndash;配置消费者所在类&ndash;&gt;
+        <property name="messageListener" ref="queueConsuerm" />
+    </bean>
+-->
+
+    <!--开启基于注解的监听器配置-->
+    <bean id="defaultJmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+        <property name="connectionFactory" ref="singleConnectionFactory" />
+        <property name="concurrency" value="3-10" />
+    </bean>
+    <jms:annotation-driven container-factory="defaultJmsListenerContainerFactory"/>
+
+</beans>
