@@ -6,6 +6,8 @@ import com.kaishengit.crm.mappers.DiskMapper;
 import com.kaishengit.crm.service.DiskService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.crm.service.fileUpAndDown.FileUploadAndDownload;
+import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -89,6 +91,19 @@ public class DiskServiceImpl implements DiskService {
         return diskMapper.selectByPrimaryKey(Id);
     }
 
+    @Value("${accessKey}")
+    private String accessKey;
+
+    @Value("${secretKey}")
+    private String secretKey;
+
+    @Value("${bucket}")
+    private String bucket;
+
+    @Value("${domainOfBucket}")
+    private String domainOfBucket;
+
+
     /**
      * 上传文件
      *
@@ -157,6 +172,26 @@ public class DiskServiceImpl implements DiskService {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
         return byteArrayInputStream;
+
+    }
+
+    /**
+     * 获得七牛云的上传凭证
+     *
+     * @return
+     */
+    @Override
+    public String getUpToken() {
+
+        Auth auth = Auth.create(accessKey, secretKey);
+
+        StringMap stringMap = new StringMap();
+
+        stringMap.put("returnBody", "{\"key\":\"$(key)\",\"fsize\":$(fsize), \"name\":\"$(fname)\",\"pId:\"\"$(x:pId)\",\"accountId\":\"$(x:accountId)\"}");
+
+        String upToken = auth.uploadToken(bucket, null, 3600, stringMap);
+
+        return upToken;
 
     }
 

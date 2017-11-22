@@ -189,7 +189,7 @@
 
         var pid = ${not empty requestScope.disk ? requestScope.disk.id : '0'};
         var accountId = ${sessionScope.curr_account.id};
-
+        var token = "${upToken}";
 
         //添加新文件夹
         $("#showNewFolderModal").click(function () {
@@ -223,16 +223,20 @@
             window.location.href = "/disk?_="+id;
         });
 
+
+
         //文件上传
         var uploader = WebUploader.create({
             pick:"#picker",
             swf:'/static/plugins/webuploader/Uploader.swf',
-            server:'/disk/upload', //上传服务器
+            //server:'/disk/upload', //上传服务器
+            server : 'http://upload-z1.qiniup.com',
             auto:true, //自动上传
             fileVal:'file', //上传文件的表单控件的名称 name属性
             formData:{
-                "pId":pid,
-                "accountId":accountId
+                "x:pId":pid,
+                "x:accountId":accountId,
+                "token" : token
             } //发送请求给服务器的额外数据
         });
 
@@ -242,8 +246,32 @@
             loadIndex = layer.load(2);
         });
         //上传成功
-        uploader.on('uploadSuccess',function (file,resp) {
-            if(resp.state == 'success') {
+        uploader.on('uploadSuccess',function (resp) {
+
+            if(resp.name != null && resp.name != "") {
+
+                alert(resp.name);
+
+            } else {
+                layer.msg("上传失败");
+            }
+
+            $.ajax({
+                url : "/disk/save/qiniu",
+                type : "post",
+                date : {
+                    "name" : resp.name
+                },
+                success : function () {
+                    
+                },
+                
+                error : function () {
+                  layer.msg("hahah11111")
+                }
+            })
+
+            /*if(resp.state == 'success') {
                 layer.msg("文件上传成功");
                 $("#dataTable").html("");
                 for(var i = 0;i < resp.data.length;i++) {
@@ -252,7 +280,7 @@
                     var html = template("trTemplate", obj); //将JSON对象传递给模板对象，转换为HTML
                     $("#dataTable").append(html);
                 }
-            }
+            }*/
         });
         //上传失败
         uploader.on('uploadError',function (file) {

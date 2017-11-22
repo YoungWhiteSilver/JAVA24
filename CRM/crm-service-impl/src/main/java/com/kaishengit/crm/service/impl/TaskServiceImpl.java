@@ -174,13 +174,6 @@ public class TaskServiceImpl implements TaskService{
         taskExample.createCriteria().andAccountIdEqualTo(account.getId());
         List<Task> taskList = taskMapper.selectByExampleWithBLOBs(taskExample);
 
-        for(Task task: taskList) {
-
-            System.out.println("<-===========================->" + task.getTitle());
-
-        }
-
-
         return taskList;
 
     }

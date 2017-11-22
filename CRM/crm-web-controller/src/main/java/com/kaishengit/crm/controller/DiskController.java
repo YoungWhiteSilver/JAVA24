@@ -40,6 +40,10 @@ public class DiskController {
 
         model.addAttribute("disk", diskService.findByPid(pId));
 
+        String upToken = diskService.getUpToken();
+
+        model.addAttribute("upToken", upToken);
+
         return "disk/list";
 
     }

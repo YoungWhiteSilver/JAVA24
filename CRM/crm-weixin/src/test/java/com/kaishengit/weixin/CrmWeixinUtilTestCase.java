@@ -66,8 +66,7 @@ public class CrmWeixinUtilTestCase {
     @Test
     public void sendTextMessageTest() throws InterruptedException {
 
-         Thread.sleep(1000);
-            crmWeixinUtil.sendTextMessage("WangMingXin", "轰炸机。。。。哒哒哒");
+        crmWeixinUtil.sendTextMessage("WangMingXin", "轰炸机。。。。哒哒哒");
 
 
     }

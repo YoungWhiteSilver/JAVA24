@@ -42,6 +42,7 @@
 <!--=========================到此以上所有为配置Job 和Trigger 为固定任务（不能动态的添加）==================================================-->
 
     <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="applicationContextSchedulerContextKey" value="springApplicationContext"/>
         <!--配置数据库连接池， 在模块Mapper中已经配置了，所以可以直接拿来用-->
         <property name="dataSource" ref="basicDataSource" />
 

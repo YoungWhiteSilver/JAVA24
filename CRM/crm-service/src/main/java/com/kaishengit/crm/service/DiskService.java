@@ -58,4 +58,10 @@ public interface DiskService {
      */
     InputStream downloadFile(Integer id) throws IOException;
 
+    /**
+     * 获得七牛云的上传凭证
+     * @return
+     */
+    String getUpToken();
+
 }
