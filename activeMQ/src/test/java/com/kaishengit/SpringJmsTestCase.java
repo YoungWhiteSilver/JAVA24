@@ -1,5 +1,6 @@
 package com.kaishengit;
 
+import org.apache.activemq.command.ActiveMQTopic;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.xml.soap.Text;
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,17 +30,30 @@ public class SpringJmsTestCase {
     private JmsTemplate jmsTemplate;
 
     @Test
-    public void sendMessageToQueue() {
+    public void sendMessageToQueue() throws IOException {
 
-        jmsTemplate.send(new MessageCreator() {
+        jmsTemplate.send("spring-queue",new MessageCreator() {
             @Override
-            public Message createMessage(Session session) throws JMSException {
+            public Message createMessage( Session session) throws JMSException {
 
                 TextMessage textMessage = session.createTextMessage("Hello,spring2");
                 return textMessage;
 
             }
 
+        });
+        System.in.read();
+    }
+
+    @Test
+    public void sendMessageToTopic() {
+        ActiveMQTopic topic = new ActiveMQTopic("spring-topic");
+        jmsTemplate.send(topic,new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                TextMessage textMessage = session.createTextMessage("Hello,Spring-Topic");
+                return textMessage;
+            }
         });
 
     }

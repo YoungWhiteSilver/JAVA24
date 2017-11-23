@@ -16,6 +16,20 @@
     <!--将ActiveMQ ConnectionFactory 放入bean-->
     <bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
         <property name="brokerURL" value="tcp://localhost:61616" />
+        <!--配置重试参数对象-->
+        <property name="redeliveryPolicy" ref="redeliveryPolicy" />
+    </bean>
+
+    <!--配置重试参数-->
+    <bean id="redeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+        <!--重试次数-->
+        <property name="maximumRedeliveries" value="3" />
+
+        <!--初次重试延迟时间-->
+        <property name="initialRedeliveryDelay" value="3000" />
+
+        <!--初次后每次间隔时间-->
+        <property name="redeliveryDelay" value="3000" />
     </bean>
 
     <!--Spring jms ConnectionFactory-->
@@ -28,25 +42,69 @@
         <!--配置连接工厂-->
         <property name="connectionFactory" ref="singleConnectionFactory" />
         <!--选配：目的地名称，如果没有配置，则在发送消息时指定-->
-        <property name="defaultDestinationName" value="spring-queue" />
+        <!--<property name="defaultDestinationName" value="spring-queue" />-->
+        <!--<property name="defaultDestinationName" value="spring-topic" />-->
+        <!--设置签收模式 默认为1，为1可不配置; 1：为自动签收，2：为手动签收-->
+        <property name="sessionAcknowledgeMode" value="2" />
     </bean>
 
-    <!--配置监听器
-    <bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer" >
+    <!--==========================================监听 Queue xml配置=============================================-->
 
+    <!--&lt;!&ndash;配置Queue监听器 方式 1&ndash;&gt;-->
+    <!--<bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--&lt;!&ndash;配置链接工厂&ndash;&gt;-->
+        <!--<property name="connectionFactory" ref="singleConnectionFactory" />-->
+        <!--<property name="destinationName" value="spring-queue" />-->
+        <!--<property name="messageListener" ref="queueConsuerm" />-->
+
+        <!--&lt;!&ndash;设置签收模式 默认为1，为1可不配置; 1：为自动签收，2：为手动签收&ndash;&gt;-->
+        <!--<property name="sessionAcknowledgeMode" value="1" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;配置Queue监听器 方式 2&ndash;&gt;-->
+    <!--&lt;!&ndash;acknowledge="auto" ：签收方式&ndash;&gt;-->
+    <!--<jms:listener-container connection-factory="singleConnectionFactory" acknowledge="auto">-->
+        <!--&lt;!&ndash;-->
+            <!--destination="spring-queue":监听队列的名字-->
+            <!--ref="queueConsuerm" ： 类名 ？-->
+            <!--concurrency="3-10" ： 连接数-->
+         <!--&ndash;&gt;-->
+        <!--<jms:listener destination="spring-queue" ref="queueConsuerm" concurrency="3-10" />-->
+    <!--</jms:listener-container>-->
+
+    <!--=================================== 监听 Topic xml配置===========================================================================-->
+    <!--配置Pub/sub监听器 方式 1-->
+    <!--<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">-->
+        <!--<constructor-arg name="name" value="spring-topic" />-->
+    <!--</bean>-->
+    <!--<bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">-->
+        <!--<property name="connectionFactory" ref="singleConnectionFactory" />-->
+        <!--<property name="messageListener" ref="topicConsumer" />-->
+        <!--<property name="destination" ref="topic" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;配置Pub/sub监听器 方式 2&ndash;&gt;-->
+    <!--<jms:listener-container destination-type="topic" connection-factory="singleConnectionFactory" >-->
+        <!--<jms:listener destination="spring-topic" ref="topicConsumer" />-->
+    <!--</jms:listener-container>-->
+
+    <!--===================================监听 Queue 基于注解===========================================================================-->
+
+    <bean id="jmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
         <property name="connectionFactory" ref="singleConnectionFactory" />
-        &lt;!&ndash;设置监听的队列&ndash;&gt;
-        <property name="destinationName" value="spring-queue" />
-        &lt;!&ndash;配置消费者所在类&ndash;&gt;
-        <property name="messageListener" ref="queueConsuerm" />
+        <!--消息签收模式 1 自动 2 手动-->
+        <property name="sessionAcknowledgeMode" value="2" />
     </bean>
--->
 
-    <!--开启基于注解的监听器配置-->
-    <bean id="defaultJmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
-        <property name="connectionFactory" ref="singleConnectionFactory" />
-        <property name="concurrency" value="3-10" />
+    <!--===================================监听 Topic 基于注解===========================================================================-->
+
+    <bean id="topicJmsListenerContainerFactory" class="org.springframework.jms.config.DefaultJmsListenerContainerFactory" >
+        <property name="connectionFactory" ref="singleConnectionFactory"/>
+        <!--监听pub/sub-->
+        <property name="pubSubDomain" value="true"/>
     </bean>
-    <jms:annotation-driven container-factory="defaultJmsListenerContainerFactory"/>
+
+    <!--两者最后 都需要配置这个-->
+    <jms:annotation-driven/>
 
 </beans>
