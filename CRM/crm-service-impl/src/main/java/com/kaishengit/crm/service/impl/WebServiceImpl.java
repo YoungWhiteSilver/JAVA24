@@ -315,5 +315,32 @@ public class WebServiceImpl implements WebService {
 
     }
 
+    /**
+     * 通过moblie查找
+     *
+     * @param userName
+     * @return
+     */
+    @Override
+    public Account findByMoblie(String userName) {
+
+        System.out.println("=-=-=-=-=-=----------" +accountMapper.selectByMobile(userName).get(0).getDeptList().get(0).toString());
+        return accountMapper.selectByMobile(userName).get(0);
+
+    }
+
+    /**
+     * 活的当前对象的部门
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Dept> findDeptById(Integer id) {
+
+
+        return deptMapper.selectDeptAllById(id);
+    }
+
 
 }

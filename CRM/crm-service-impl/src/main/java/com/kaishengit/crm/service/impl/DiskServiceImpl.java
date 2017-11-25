@@ -187,11 +187,35 @@ public class DiskServiceImpl implements DiskService {
 
         StringMap stringMap = new StringMap();
 
-        stringMap.put("returnBody", "{\"key\":\"$(key)\",\"fsize\":$(fsize), \"name\":\"$(fname)\",\"pId:\"\"$(x:pId)\",\"accountId\":\"$(x:accountId)\"}");
-
+        stringMap.put("returnBody", "{\"key\":\"$(key)\",\"fsize\":\"$(fsize)\",\"name\":\"$(fname)\",\"pId\":\"$(x:pId)\",\"accountId\":\"$(x:accountId)\"}");
         String upToken = auth.uploadToken(bucket, null, 3600, stringMap);
 
         return upToken;
+
+    }
+
+    /**
+     * 保存七牛云返回的数据
+     *
+     * @param name
+     * @param key
+     * @param accountId
+     * @param pId
+     * @param fileSize
+     */
+    @Override
+    public void saveQiniu(String name, String key, Integer accountId, Integer pId, Integer fileSize) {
+
+        Disk disk = new Disk();
+
+        disk.setAccountId(accountId);
+        disk.setFileSize(FileUtils.byteCountToDisplaySize(fileSize));
+        disk.setName(name);
+        disk.setSaveName(key);
+        disk.setpId(pId);
+        disk.setType(Disk.FILE);
+
+        diskMapper.insertSelective(disk);
 
     }
 

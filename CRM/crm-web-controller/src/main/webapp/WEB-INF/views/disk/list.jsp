@@ -246,30 +246,31 @@
             loadIndex = layer.load(2);
         });
         //上传成功
-        uploader.on('uploadSuccess',function (resp) {
+        uploader.on('uploadSuccess',function (file, data) {
 
-            if(resp.name != null && resp.name != "") {
+                $.ajax({
+                    url : "/disk/save/qiniu",
+                    type : "post",
+                    data : {
+                       "data" : data._raw
+                    },
+                    success : function (json) {
+                        if(json.state == 'success') {
+                            layer.msg("文件上传成功");
+                            $("#dataTable").html("");
+                            for(var i = 0;i < json.data.length;i++) {
+                                var obj = json.data[i]; //{id:1,name:'',fileSize:}
+                                obj.updateTime = moment(obj.updateTime).format("MM月DD日"); //将时间戳格式化
+                                var html = template("trTemplate", obj); //将JSON对象传递给模板对象，转换为HTML
+                                $("#dataTable").append(html);
+                            }
+                        }
 
-                alert(resp.name);
-
-            } else {
-                layer.msg("上传失败");
-            }
-
-            $.ajax({
-                url : "/disk/save/qiniu",
-                type : "post",
-                date : {
-                    "name" : resp.name
-                },
-                success : function () {
-                    
-                },
-                
-                error : function () {
-                  layer.msg("hahah11111")
-                }
-            })
+                    },
+                    error : function () {
+                        layer.msg("hahah11111")
+                    }
+                })
 
             /*if(resp.state == 'success') {
                 layer.msg("文件上传成功");

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -31,10 +30,9 @@ public class TaskController extends BaseController{
 
     @GetMapping
     public String toList(@RequestParam(required = false) Integer show,
-                         HttpSession session,
                          Model model) {
 
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
         model.addAttribute("taskList", taskService.findAll(show, account));
 
         return "task/list";

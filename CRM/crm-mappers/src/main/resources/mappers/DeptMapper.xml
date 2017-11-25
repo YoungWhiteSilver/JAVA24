@@ -209,5 +209,16 @@
           </if>
         </where>
   </select>-->
+    
+    <select id="selectDeptAllById" resultType="com.kaishengit.crm.entity.Dept">
+        SELECT
+            t_dept.*
+        FROM
+            t_dept_account
+        INNER JOIN t_account ON t_account.id = t_dept_account.acc_id
+        INNER JOIN t_dept ON t_dept.id = t_dept_account.dept_id
+        WHERE
+            t_account.id = #{id};
+    </select>
 
 </mapper>

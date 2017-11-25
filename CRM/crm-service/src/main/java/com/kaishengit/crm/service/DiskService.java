@@ -64,4 +64,15 @@ public interface DiskService {
      */
     String getUpToken();
 
+    /**
+     * 保存七牛云返回的数据
+     * @param name
+     * @param key
+     * @param accountId
+     * @param pId
+     * @param fileSize
+     */
+    void saveQiniu(String name, String key, Integer accountId, Integer pId, Integer fileSize);
+
+
 }

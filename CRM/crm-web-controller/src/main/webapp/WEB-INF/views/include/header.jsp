@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 67675
@@ -39,7 +40,7 @@
                         <li class="user-header">
                             <img src="/static/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                             <p>
-                                ${sessionScope.curr_account.userName}
+                                <shiro:principal property="userName" />
                                 <c:forEach items="${sessionScope.curr_account.deptList}" var="dept">
                                     <small>${dept.deptName}</small>
                                 </c:forEach>

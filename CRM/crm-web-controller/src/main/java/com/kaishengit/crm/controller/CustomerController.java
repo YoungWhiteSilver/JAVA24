@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -42,10 +41,9 @@ public class CustomerController extends BaseController{
     @RequestMapping("/my")
     public String myCustomer(@RequestParam(required = false, defaultValue = "1") Integer p,
                              @RequestParam(required = false, defaultValue = "") String key,
-                             HttpSession session,
                              Model model) {
 
-        Account account = (Account)session.getAttribute("curr_account");
+        Account account = getAccount();
         Integer accId = account.getId();
 
         PageInfo<Customer> pageInfo = webService.myCustomer(p, key, accId);
@@ -56,18 +54,16 @@ public class CustomerController extends BaseController{
     /**
      * 客户信息详情
      * @param id
-     * @param session
      * @param redirectAttributes
      * @param model
      * @return
      */
     @GetMapping("/detail")
     public String customerDetail(@RequestParam(required = false) Integer id,
-                                 HttpSession session,
                                  RedirectAttributes redirectAttributes,
                                  Model model) {
 
-        Account account = (Account)session.getAttribute("curr_account");
+        Account account = getAccount();
         Integer accId = account.getId();
         try{
 
@@ -112,16 +108,14 @@ public class CustomerController extends BaseController{
     /**
      * 修改用户信息
      * @param customerId
-     * @param session
      * @param model
      * @return
      */
     @GetMapping("/{customerId:\\d+}/edit")
     public String editCustomer(@PathVariable(required = false, name = "customerId") Integer customerId,
-                               HttpSession session,
                                Model model) {
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         model.addAttribute("customer", webService.customerDetail(customerId, account.getId()));
 
@@ -132,16 +126,14 @@ public class CustomerController extends BaseController{
     /**
      * 修改用户信息
      * @param customer
-     * @param session
      * @param redirectAttributes
      * @return
      */
     @PostMapping("/edit")
     public String editCustomer(Customer customer,
-                               HttpSession session,
                                RedirectAttributes redirectAttributes) {
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         try{
 
@@ -161,16 +153,14 @@ public class CustomerController extends BaseController{
 
     /**
      * 导出文件为csv
-     * @param session
      * @param redirectAttributes
      * @return
      */
     @GetMapping("/my/export.csv")
-    public void exportExcelCsv(HttpSession session,
-                                 HttpServletResponse response,
-                                 RedirectAttributes redirectAttributes) throws IOException{
+    public void exportExcelCsv(HttpServletResponse response,
+                               RedirectAttributes redirectAttributes) throws IOException{
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         response.setContentType("text/csv;charset=GBK");
         response.addHeader("Content-Disposition","attachment; filename=\"costomer.csv\"");
@@ -181,10 +171,9 @@ public class CustomerController extends BaseController{
     }
 
     @GetMapping("/my/export.xls")
-    public void exportExcelXls(HttpServletResponse response,
-                                 HttpSession session) throws IOException{
+    public void exportExcelXls(HttpServletResponse response) throws IOException{
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         response.setContentType("application/vnd.ms-excel");
         response.addHeader("Content-Disposition","attachment; filename=\"costomer.xls\"");
@@ -202,10 +191,9 @@ public class CustomerController extends BaseController{
     @GetMapping("/my/{customerId:\\d+}/transfer/{toAccountId:\\d+}")
     public String transferCustomer(@PathVariable Integer customerId,
                                   @PathVariable Integer toAccountId,
-                                   HttpSession session,
                                    RedirectAttributes redirectAttributes) {
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         try{
 
@@ -224,10 +212,9 @@ public class CustomerController extends BaseController{
 
     @GetMapping("/{customerId:\\d+}/public")
     public String publicCustomer(@PathVariable Integer customerId,
-                                 HttpSession session,
                                  RedirectAttributes redirectAttributes) {
 
-        Account account = getAccount("curr_account", session);
+        Account account = getAccount();
 
         customerService.customerPublic(customerId, account);
         redirectAttributes.addAttribute("warning", "已经移交公海");

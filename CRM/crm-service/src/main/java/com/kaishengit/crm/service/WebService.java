@@ -93,6 +93,20 @@ public interface WebService {
      */
     List<Account> findAllEmployee();
 
+    /**
+     * 通过moblie查找
+     * @param userName
+     * @return
+     */
+    Account findByMoblie(String userName);
+
+    /**
+     * 活的当前对象的部门
+     * @param id
+     * @return
+     */
+    List<Dept> findDeptById(Integer id);
+
 
 //    PageInfo<Dept> homePage(Integer p, Integer id);
 }

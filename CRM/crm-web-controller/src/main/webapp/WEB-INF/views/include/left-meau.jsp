@@ -27,6 +27,13 @@
         <!-- 菜单 -->
         <ul class="sidebar-menu">
             <li class="header">系统功能</li>
+
+            <li class="treeview ${fn:startsWith(param.menu, 'myHome') ? 'active' : ''}">
+                <a href="/home">
+                    <i class="fa fa-home"></i> <span>系统首页</span>
+                </a>
+            </li>
+
             <!-- 客户管理 -->
             <li class="treeview ${fn:startsWith(param.menu, 'customer_') ? 'active' : ''}">
                 <a href="#">
@@ -64,7 +71,6 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="${param.menu == 'task' ? 'active' : ''}"><a href="/task"><i class="fa fa-circle-o"></i> 待办列表</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> 逾期事项</a></li>
                 </ul>
             </li>
             <!-- 统计报表   customer_charts-->

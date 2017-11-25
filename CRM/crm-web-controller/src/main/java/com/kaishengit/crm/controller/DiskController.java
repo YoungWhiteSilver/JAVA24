@@ -1,9 +1,11 @@
 package com.kaishengit.crm.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.kaishengit.crm.entity.Disk;
 import com.kaishengit.crm.service.DiskService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.utils.AjaxResult;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -150,8 +154,30 @@ public class DiskController {
 
         }
 
+    }
+
+
+    @PostMapping("/save/qiniu")
+    @ResponseBody
+    public AjaxResult saveQiniu(String data) {
+
+        System.out.println(data);
+        Map<String, String> map = JSON.parseObject(data, HashMap.class);
+
+        System.out.println(map.get("key"));
+        System.out.println(map.get("pId"));
+
+        //void saveQiniu(String name, String key, Integer accountId, Integer pId, Integer fileSize);
+        //{"key":"FkZM_zWOiVlLvfhX84xrvMXxCSt8","fsize":"6618","name":"uptimg[1].jpg","pId":"0","accountId":"1"}
+        diskService.saveQiniu(map.get("name"), map.get("key"), Integer.valueOf( map.get("accountId")),
+                Integer.valueOf(map.get("pId")), Integer.valueOf(map.get("fsize")));
+
+        List<Disk> diskList = diskService.findAll(Integer.valueOf(map.get("pId")));
+
+        return AjaxResult.success(diskList);
 
     }
+
 
 
 }

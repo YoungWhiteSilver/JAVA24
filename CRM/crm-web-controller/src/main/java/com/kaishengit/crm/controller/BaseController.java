@@ -1,8 +1,8 @@
 package com.kaishengit.crm.controller;
 
+import com.kaishengit.crm.auth.ShiroUtil;
 import com.kaishengit.crm.entity.Account;
 
-import javax.servlet.http.HttpSession;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,11 +12,12 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class BaseController {
 
-    public Account getAccount(String name, HttpSession session) {
+    public Account getAccount() {
 
-        Account account = (Account) session.getAttribute(name);
-        return account;
+        return ShiroUtil.getAccount();
+
     }
+
 
 
 

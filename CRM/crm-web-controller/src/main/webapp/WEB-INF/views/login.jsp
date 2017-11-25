@@ -110,7 +110,7 @@
 
                     success : function(json) {
                         if(json.state == "success") {
-                            window.location.href = "/employee";
+                            window.location.href = json.data;
                         } else {
                             layer.msg(json.message);
                         }

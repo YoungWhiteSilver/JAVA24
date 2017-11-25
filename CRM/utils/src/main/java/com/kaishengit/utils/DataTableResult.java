@@ -3,7 +3,9 @@ package com.kaishengit.utils;
 import java.util.List;
 
 /**
- * Created by silver on 2017/11/8.
+ *
+ * @author silver
+ * @date 2017/11/8
  */
 public class DataTableResult<T> {
     private Integer draw;

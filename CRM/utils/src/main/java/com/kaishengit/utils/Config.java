@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Created by silver on 2017/11/6.
+ * @author 67675
  */
 public class Config {
 

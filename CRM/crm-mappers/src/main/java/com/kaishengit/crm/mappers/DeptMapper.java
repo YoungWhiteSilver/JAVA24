@@ -29,4 +29,5 @@ public interface DeptMapper {
 
     int updateByPrimaryKey(Dept record);
 
+    List<Dept> selectDeptAllById(Integer id);
 }

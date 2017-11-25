@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -39,15 +38,11 @@ public class SaleController extends BaseController{
     @Autowired
     private TaskService taskService;
 
-    /**
-     * 当前员工存贮在seesion中属性名子
-     */
-    private static final String USER = "curr_account";
 
     @GetMapping("/my/chance")
-    public String mySaleChance(HttpSession session, Model model) {
+    public String mySaleChance( Model model) {
 
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
 
         try{
 
@@ -67,10 +62,10 @@ public class SaleController extends BaseController{
 
     @PostMapping("/my/new")
     @ResponseBody
-    public AjaxResult newSaleChance(SaleChance saleChance,
-                                    HttpSession session) {
+    public AjaxResult newSaleChance(SaleChance saleChance
+                                    ) {
 
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
 
         try{
 
@@ -87,11 +82,10 @@ public class SaleController extends BaseController{
 
     @GetMapping("/my/detail")
     public String saleChanceDetail(Integer saleId,
-                                   HttpSession session,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
 
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
         try{
 
             SaleChance saleChance = saleService.findById(saleId, account);
@@ -114,9 +108,8 @@ public class SaleController extends BaseController{
     @PostMapping("/my/progress/update")
     public String updateProgress(@RequestParam Integer saleChanceId,
                                  @RequestParam String progress,
-                                 HttpSession session,
                                  RedirectAttributes redirectAttributes) {
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
         try{
 
             saleChanceRecordService.saveRecordAndUpdateProgress(saleChanceId, progress, account);
@@ -132,10 +125,9 @@ public class SaleController extends BaseController{
     @PostMapping("/my/new/record")
     public String saveRecord(Integer saleId,
                              String content,
-                             HttpSession session,
                              RedirectAttributes redirectAttributes) {
 
-        Account account = getAccount(USER, session);
+        Account account = getAccount();
 
         try{
 
