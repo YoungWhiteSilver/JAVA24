@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.kaishengit.pojo">
+
+    <!--name ： 实体类名  table：表名-->
+    <class name="Student" table="t_student">
+        <!--当column和name属性值一样的时候，可以省略column-->
+        <id name="id">
+            <generator class="native" />
+        </id>
+        <property name="stuName" column="stu_name" />
+        <property name="stuAge" column="stu_age" />
+        <property name="stuAddress" column="stu_address" />
+        <property name="stuClass" column="stu_class" />
+    </class>
+</hibernate-mapping>

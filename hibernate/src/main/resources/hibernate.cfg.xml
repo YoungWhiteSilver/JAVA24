@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <session-factory>
+        <!--数据库连接 -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/mydb</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">123456</property>
+
+        <!--配置数据库方言-->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!--==========================配置数据库连接池 用的c3p0 =======================================-->
+        <!--最大连接数-->
+        <property name="c3p0.max_size">2</property>
+
+        <!--最小连接数-->
+        <property name="c3p0.min_size">2</property>
+
+        <!--获取连接的超时时间，如果超过这个时间，会抛出异常，单位毫秒-->
+        <property name="c3p0.timeout">5000</property>
+
+        <!--最大的PreparedStatement的数量-->
+        <property name="c3p0.max_statements">100</property>
+
+        <!--每隔3000秒检查连接池中空闲连接， 单位是秒-->
+        <property name="c3p0.idle_test_period">3000</property>
+
+        <!--当连接池里面的连接用完的时候，C3P0一次获取新的连接数-->
+        <property name="c3p0.acquire_increment">2</property>
+
+        <!--每次验证连接是否可用-->
+        <property name="c3p0.validate">false</property>
+        <!--==========================配置数据库连接池结束=======================================-->
+
+        <!--显示Hibernate自动生成的sql-->
+        <property name="show_sql">true</property>
+
+        <property name="current_session_context_class">thread</property>
+
+        <mapping resource="hbm/Student.hbm.xml" />
+    </session-factory>
+
+</hibernate-configuration>
