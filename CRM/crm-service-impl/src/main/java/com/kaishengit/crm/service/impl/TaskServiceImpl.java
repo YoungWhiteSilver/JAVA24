@@ -178,5 +178,35 @@ public class TaskServiceImpl implements TaskService{
 
     }
 
+    /**
+     * 完成事件
+     *
+     * @param id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateDone(Integer id) {
+
+        Task task = taskMapper.selectByPrimaryKey(id);
+
+        task.setDone(DONE);
+
+        taskMapper.updateByPrimaryKeySelective(task);
+
+        Scheduler scheduler = schedulerFactoryBean.getScheduler();
+
+        try {
+
+            scheduler.deleteJob(new JobKey("taskID:" + task.getId(), "sendMessageGroup"));
+
+        } catch (SchedulerException e) {
+
+            e.printStackTrace();
+            throw new ServiceException("删除任务失败");
+
+        }
+
+    }
+
 
 }

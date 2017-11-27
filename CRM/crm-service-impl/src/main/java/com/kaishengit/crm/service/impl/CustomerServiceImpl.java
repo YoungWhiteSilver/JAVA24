@@ -249,6 +249,25 @@ public class CustomerServiceImpl implements CustomerService{
         return customerMapper.saleFunnel();
     }
 
+    @Override
+    public void taskPublicCustomer(Integer id, Account account) {
+
+        Customer customer = customerMapper.selectByPrimaryKey(id);
+
+        if(customer != null && customer.getAccountId() != 0) {
+
+            customer.setAccountId(account.getId());
+
+            customerMapper.updateByPrimaryKey(customer);
+
+         } else {
+
+            throw new ServiceException("验证失败");
+
+        }
+
+    }
+
 
     private List<Customer> findAllCustomerByAccountId(Account account) {
 

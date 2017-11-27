@@ -52,7 +52,7 @@
                     <ul class="todo-list">
                         <c:forEach items="${taskList}" var="task">
                             <li class="${task.done==1 ? 'done' : ''}">
-                                <input type="checkbox" class="task_checkbox" ${task.done==1 ? 'checked' : ''} value="${task.id}">
+                                <input type="checkbox" class="task_checkbox" ${task.done==1 ? 'checked' : ''}  value="${task.id}">
                                 <span class="text">${task.title}</span>
                                     <%-- <c:choose>
                                          <c:when test="${not empty task.customer and not empty task.customer.id}">
@@ -109,7 +109,10 @@
             var id = $(this).val();
             var checked = $(this)[0].checked;
             if(checked) {
+
                 window.location.href = "/task/"+id+"/state/done";
+
+
             } else {
                 window.location.href = "/task/"+id+"/state/undone"
             }

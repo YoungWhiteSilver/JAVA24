@@ -8,6 +8,7 @@ import com.kaishengit.crm.service.SaleChanceRecordService;
 import com.kaishengit.crm.service.WebService;
 import com.kaishengit.crm.service.exception.ServiceException;
 import com.kaishengit.utils.AjaxResult;
+import org.apache.ibatis.annotations.Param;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -235,7 +236,26 @@ public class CustomerController extends BaseController{
 
     }
 
+    @GetMapping("/{id:\\d+}/take")
+    public String taskPublicCustomer(@PathVariable Integer id,
+                                     RedirectAttributes redirectAttributes) {
 
+        Account account = getAccount();
+
+        try{
+
+            customerService.taskPublicCustomer(id, account);
+            redirectAttributes.addAttribute("warning", "接收客户成功");
+
+        } catch (ServiceException e) {
+
+            redirectAttributes.addAttribute("warning", e.getMessage());
+
+        }
+
+        return "redirect:/customer/my";
+
+    }
 
 
 

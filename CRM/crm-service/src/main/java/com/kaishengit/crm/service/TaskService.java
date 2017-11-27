@@ -39,4 +39,11 @@ public interface TaskService {
      * @return
      */
     List<Task> findAll(Integer show, Account account);
+
+    /**
+     * 完成事件
+     * @param id
+     */
+    void updateDone(Integer id);
+
 }

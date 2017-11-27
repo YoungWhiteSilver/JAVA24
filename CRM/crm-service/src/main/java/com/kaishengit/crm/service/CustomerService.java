@@ -91,4 +91,5 @@ public interface CustomerService {
     List<Map<String,String>> saleFunnelListByProgress();
 
 
+    void taskPublicCustomer(Integer id, Account account);
 }

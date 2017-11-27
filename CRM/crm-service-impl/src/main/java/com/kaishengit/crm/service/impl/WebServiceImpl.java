@@ -324,7 +324,6 @@ public class WebServiceImpl implements WebService {
     @Override
     public Account findByMoblie(String userName) {
 
-        System.out.println("=-=-=-=-=-=----------" +accountMapper.selectByMobile(userName).get(0).getDeptList().get(0).toString());
         return accountMapper.selectByMobile(userName).get(0);
 
     }

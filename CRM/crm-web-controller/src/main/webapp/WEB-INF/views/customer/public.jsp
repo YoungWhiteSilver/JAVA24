@@ -57,7 +57,7 @@
     <!-- ===============★★★★★★★★★★★★★★★★================================ -->
 
 <jsp:include page="../include/left-meau.jsp">
-    <jsp:param name="menu" value="customer_my" />
+    <jsp:param name="menu" value="customer_public" />
 </jsp:include>
 
     <!-- =============★★★★★★★★★★★★★★★★======★★★★★★★★★★★★=★★★★★★=★★★★★★========================== -->
@@ -101,6 +101,7 @@
                             <th>跟进时间</th>
                             <th>级别</th>
                             <th>联系方式</th>
+                            <th>状态</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -117,6 +118,7 @@
                                 </c:if>
                                 <td class="star">${customer.level}</td>
                                 <td><i class="fa fa-phone"></i> ${customer.mobile} <br></td>
+                                <td><i class="fa  fa-user-o"></i></td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -174,7 +176,10 @@
         $(".customerId").click(function () {
 
             var id = $(this).attr("rel");
-            window.location.href = "/customer/detail?id="+ id;
+            layer.confirm("确定从公海获得该用户么？", function (index) {
+                layer.close(index);
+                window.location.href = "/customer/" + id + "/take";
+            })
 
         });
         /*==============================================新增客户==========================================*/
