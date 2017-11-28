@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kaishengit.pojo">
+    <class name="Label" table="t_label">
+        <id name="id">
+            <generator class="native" />
+        </id>
+        <property name="labelName" column="label_name" />
+        <set name="boySet" table="t_boy_label" inverse="true">
+            <key column="label_id"></key>
+            <many-to-many class="Boy" column="boy_id" />
+        </set>
+    </class>
+</hibernate-mapping>

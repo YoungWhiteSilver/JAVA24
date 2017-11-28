@@ -43,6 +43,9 @@
         <property name="current_session_context_class">thread</property>
 
         <mapping resource="hbm/Student.hbm.xml" />
+        <mapping resource="hbm/StudentClass.hbm.xml" />
+        <mapping resource="hbm/Boy.hbm.xml" />
+        <mapping resource="hbm/Label.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>

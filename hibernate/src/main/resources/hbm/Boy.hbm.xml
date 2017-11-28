@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.kaishengit.pojo">
+    <class name="Boy" table="t_boy">
+        <id name="id">
+            <generator class="native" />
+        </id>
+        <property name="boyName" column="boy_name" />
+        <property name="boyAge" column="boy_age" />
+        <set name="labelSet" table="t_boy_label">
+            <!-- 关联关系表中的列名 -->
+            <key column="boy_id"></key>
+            <many-to-many class="Label" column="label_id" />
+        </set>
+    </class>
+
+
+</hibernate-mapping>

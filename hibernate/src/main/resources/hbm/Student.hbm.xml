@@ -14,6 +14,7 @@
         <property name="stuName" column="stu_name" />
         <property name="stuAge" column="stu_age" />
         <property name="stuAddress" column="stu_address" />
-        <property name="stuClass" column="stu_class" />
+        <!--fetch="join" : 当many-to-one不设置这个属性是，查询未懒加载，不用不去查询，当设置了则去掉了懒加载直接连接查询-->
+        <many-to-one name="studentClass" class="com.kaishengit.pojo.StudentClass" column="stu_class"/>
     </class>
 </hibernate-mapping>

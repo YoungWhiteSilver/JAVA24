@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.kaishengit.pojo">
+    <class table="t_class" name="StudentClass">
+        <id name="id">
+            <generator class="native" />
+        </id>
+        <property name="className" column="class_name" />
+        <property name="classHot" column="class_hot" />
+
+        <!--
+        fetch="join" : 当<set>不设置这个属性是，查询未懒加载，不用不去查询，当设置了则去掉了懒加载直接连接查询
+        inverse="true" 放弃维护关系，一般维护关系油多的进行维护
+        -->
+        <set name="studentSet" order-by="id desc" inverse="true">
+            <key column="stu_class"></key>
+            <one-to-many class="Student"  />
+        </set>
+    </class>
+</hibernate-mapping>
+

@@ -8,11 +8,21 @@ package com.kaishengit.pojo;
  */
 public class Student {
 
+    public Student() {
+    }
+
     private Integer id;
     private String stuName;
     private Integer stuAge;
     private String stuAddress;
-    private String stuClass;
+    private StudentClass studentClass;
+
+
+    public Student(String stuName, Integer stuAge, String stuAddress) {
+        this.stuName = stuName;
+        this.stuAge = stuAge;
+        this.stuAddress = stuAddress;
+    }
 
     public Integer getId() {
         return id;
@@ -46,12 +56,12 @@ public class Student {
         this.stuAddress = stuAddress;
     }
 
-    public String getStuClass() {
-        return stuClass;
+    public StudentClass getStudentClass() {
+        return studentClass;
     }
 
-    public void setStuClass(String stuClass) {
-        this.stuClass = stuClass;
+    public void setStudentClass(StudentClass studentClass) {
+        this.studentClass = studentClass;
     }
 
     @Override
@@ -61,7 +71,6 @@ public class Student {
                 ", stuName='" + stuName + '\'' +
                 ", stuAge=" + stuAge +
                 ", stuAddress='" + stuAddress + '\'' +
-                ", stuClass='" + stuClass + '\'' +
                 '}';
     }
 }
