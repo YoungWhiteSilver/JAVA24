@@ -6,7 +6,8 @@
 <hibernate-mapping package="com.kaishengit.pojo">
 
     <!--name ： 实体类名  table：表名-->
-    <class name="Student" table="t_student">
+    <class name="Student" table="t_student" >
+        <cache usage="read-write" />
         <!--当column和name属性值一样的时候，可以省略column-->
         <id name="id">
             <generator class="native" />

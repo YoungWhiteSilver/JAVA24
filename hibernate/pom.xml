@@ -14,6 +14,7 @@
         <c3p0-version>0.9.5.2</c3p0-version>
         <mysql-version>5.1.40</mysql-version>
         <junit-version>4.12</junit-version>
+        <ehchache-version>2.6.11</ehchache-version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,20 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--缓存-->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehchache-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate-version}</version>
+        </dependency>
+
 
     </dependencies>
     <build>

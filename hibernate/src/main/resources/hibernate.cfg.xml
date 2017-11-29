@@ -14,6 +14,9 @@
         <!--配置数据库方言-->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
+        <!--开启二级缓存-->
+        <property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
         <!--==========================配置数据库连接池 用的c3p0 =======================================-->
         <!--最大连接数-->
         <property name="c3p0.max_size">2</property>
@@ -46,6 +49,7 @@
         <mapping resource="hbm/StudentClass.hbm.xml" />
         <mapping resource="hbm/Boy.hbm.xml" />
         <mapping resource="hbm/Label.hbm.xml" />
+        <mapping resource="hbm/Lock.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>
