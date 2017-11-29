@@ -1,5 +1,6 @@
 package com.kaishengit.pojo;
 
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -8,11 +9,22 @@ import java.util.Set;
  * @author: 67675
  * @date: 2017/11/28
  */
+@Entity
+@Table(name = "t_class")
 public class StudentClass {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(name = "class_name")
     private String className;
+
+    @Column(name = "class_hot")
     private Integer classHot;
+    /*mappedBy为多的名字 cascade = CascadeType.REMOVE 及联删除 ：
+    当该表删除了一条记录那么关联的表记录也会删除*/
+    @OneToMany(mappedBy = "studentClass", cascade = CascadeType.REMOVE)
     private Set<Student> studentSet;
 
     @Override

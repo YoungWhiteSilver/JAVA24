@@ -45,10 +45,16 @@
 
         <property name="current_session_context_class">thread</property>
 
-        <mapping resource="hbm/Student.hbm.xml" />
-        <mapping resource="hbm/StudentClass.hbm.xml" />
-        <mapping resource="hbm/Boy.hbm.xml" />
-        <mapping resource="hbm/Label.hbm.xml" />
+
+        <mapping class="com.kaishengit.pojo.Boy" />
+        <mapping class="com.kaishengit.pojo.Label" />
+        <mapping class="com.kaishengit.pojo.Student" />
+        <mapping class="com.kaishengit.pojo.StudentClass" />
+
+        <!--<mapping resource="hbm/Student.hbm.xml" />-->
+        <!--<mapping resource="hbm/StudentClass.hbm.xml" />-->
+        <!--<mapping resource="hbm/Boy.hbm.xml" />-->
+        <!--<mapping resource="hbm/Label.hbm.xml" />-->
         <mapping resource="hbm/Lock.hbm.xml" />
     </session-factory>
 

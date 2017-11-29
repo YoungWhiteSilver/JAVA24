@@ -1,20 +1,34 @@
 package com.kaishengit.pojo;
 
+import javax.persistence.*;
+
 /**
  * Created with IntelliJ IDEA.
  *
  * @author: 67675
  * @date: 2017/11/27
  */
+@Entity
+@Table(name = "t_student")
 public class Student {
 
     public Student() {
     }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(name = "stu_name")
     private String stuName;
+
+    @Column(name = "stu_age")
     private Integer stuAge;
+
+    @Column(name = "stu_address")
     private String stuAddress;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stu_class")
     private StudentClass studentClass;
 
 
