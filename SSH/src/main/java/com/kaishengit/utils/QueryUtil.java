@@ -36,14 +36,19 @@ public class QueryUtil {
 
     public static List<RequestQuery> getQueryList(HttpServletRequest request) {
 
+        //获得所有url后所有的键值对。
         Enumeration<String> stringEnumeration =  request.getParameterNames();
 
+        //约定key为 q_列名_eq(执行的方法)_i(数据类型) eg：q_stuAge_eq_i
         List<RequestQuery> requestQueryList = new ArrayList<>();
 
+        //循环获得url键值对集合
         while (stringEnumeration.hasMoreElements()) {
 
+            //获得key
             String queryKey = stringEnumeration.nextElement();
 
+            //通过key获得值
             String value = request.getParameter(queryKey);
 
             //q_keyName_like_i

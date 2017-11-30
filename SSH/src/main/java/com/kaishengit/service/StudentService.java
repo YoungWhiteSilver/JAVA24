@@ -1,8 +1,10 @@
 package com.kaishengit.service;
 
+import com.kaishengit.dao.StudentClassDao;
 import com.kaishengit.dao.StudentDao;
 import com.kaishengit.exception.DaoAndUtilsException;
 import com.kaishengit.pojo.Student;
+import com.kaishengit.pojo.StudentClass;
 import com.kaishengit.utils.Page;
 import com.kaishengit.utils.voentity.RequestQuery;
 import org.apache.commons.lang3.StringUtils;
@@ -48,4 +50,29 @@ public class StudentService {
     }
 
 
+    /**
+     * 根据ID查询
+     * @param id
+     * @return
+     */
+    public Student selectById(Integer id) {
+
+        if(!StringUtils.isNumeric(id.toString())) {
+
+            throw new DaoAndUtilsException("ID参数不合法");
+
+        }
+
+        return studentDao.selectById(id);
+
+    }
+
+
+
+
+    public void insertOrUpdate(Student student) {
+
+        studentDao.insertOrUpdate(student);
+
+    }
 }
