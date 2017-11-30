@@ -1,12 +1,19 @@
 package com.kaishengit.controller;
 
+import com.kaishengit.pojo.Student;
 import com.kaishengit.service.StudentService;
+import com.kaishengit.utils.Page;
+import com.kaishengit.utils.QueryUtil;
+import com.kaishengit.utils.voentity.RequestQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,13 +35,17 @@ public class StudentController {
      */
     @GetMapping
     public String list(@RequestParam(required = false, defaultValue = "0") Integer p,
-                       @RequestParam(required = false, defaultValue = "") String stuName,
-                       @RequestParam(required = false, defaultValue = "") Integer stuClass,
-                       @RequestParam(required = false) Integer stuAge,
-                       Model model) {
+                        HttpServletRequest request,
+                        Model model) {
 
-        model.addAttribute("studentPageInfo", studentService.selectAllByPage(p, stuAge, stuClass, stuName));
+        List<RequestQuery> requestQueryList = QueryUtil.getQueryList(request);
+
+        Page<Student> studentPage = studentService.selectAllByPage(p, requestQueryList);
+
+        model.addAttribute("studentPageInfo", studentPage);
+
         return "list";
+
     }
 
 

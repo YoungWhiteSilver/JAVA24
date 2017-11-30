@@ -32,21 +32,24 @@
                     </div>
                 </c:if>
                 <form class="form-inline" action="/student">
-                    <input type="text" name="stuName" placeholder="学生姓名" class="form-control" value="${param.stuName}">
+                <form class="form-inline" action="/student">
+                    <input type="text" name="q_stuName_like_s" placeholder="学生姓名" class="form-control" value="${param.q_stuName_like_s}">
+                    <input type="text" name="q_stuAge_eq_I" placeholder="学生年龄" class="form-control" value="${param.q_stuAge_eq_I}">
 
-                    <select name="stuClass" class="form-control">
-                        <option value="">--选择班级--</option>
-                        <c:forEach items="${studentClass}" var="studentClass">
-                            <option value="${studentClass.id}" ${param.stuClass == studentClass.id ? 'selected' : ''}>${studentClass.className}</option>
-                        </c:forEach>
-                    </select>
 
-                    <select name="stuAge" class="form-control">
-                        <option value="">--选择年龄--</option>
-                        <c:forEach items="${studentAgeList}" var="age">
-                            <option value="${age}" ${param.stuAge == age ? 'selected' : ''}>${age}</option>
-                        </c:forEach>
-                    </select>
+                    <%--<select name="q_stuClass_eq_i" class="form-control">--%>
+                        <%--<option value="">--选择班级--</option>--%>
+                        <%--<c:forEach items="${studentClass}" var="studentClass">--%>
+                            <%--<option value="${studentClass.id}" ${param.stuClass == studentClass.id ? 'selected' : ''}>${studentClass.className}</option>--%>
+                        <%--</c:forEach>--%>
+                    <%--</select>--%>
+
+                    <%--<select name="q_stuAge_eq_i" class="form-control">--%>
+                        <%--<option value="">--选择年龄--</option>--%>
+                        <%--<c:forEach items="${studentAgeList}" var="age">--%>
+                            <%--<option value="${age}" ${param.stuAge == age ? 'selected' : ''}>${age}</option>--%>
+                        <%--</c:forEach>--%>
+                    <%--</select>--%>
                     <button class="btn btn-success">搜索</button>
                     <a href="/student" class="btn btn-default">重置</a>
                 </form>
@@ -63,7 +66,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${studentPageInfo}" var="student">
+                    <c:forEach items="${studentPageInfo.pageItems}" var="student">
                         <tr>
                             <td>${student.id}</td>
                             <td><a href="/student/${student.id}">${student.stuName}</a></td>
@@ -88,15 +91,15 @@
 <script>
     $(function(){
 
-        <%--$('#pagination-demo').twbsPagination({--%>
-            <%--totalPages: ${studentPageInfo.pages},--%>
-            <%--visiblePages: 10,--%>
-            <%--href:"?p={{number}}&stuAge=${param.stuAge}&stuName="+ encodeURIComponent("${param.stuName}") + "&stuClass=" + encodeURIComponent("${param.stuClass}"),--%>
-            <%--first:'首页',--%>
-            <%--last:'末页',--%>
-            <%--prev:'上一页',--%>
-            <%--next:'下一页'--%>
-        <%--});--%>
+        $('#pagination-demo').twbsPagination({
+            totalPages: ${studentPageInfo.pageTotal},
+            visiblePages: 10,
+            href:"?p={{number}}&q_stuAge_eq_I=${param.q_stuAge_eq_I}&q_stuName_like_s="+ encodeURIComponent("${param.q_stuName_like_s}"),
+            first:'首页',
+            last:'末页',
+            prev:'上一页',
+            next:'下一页'
+        });
 
     });
 </script>

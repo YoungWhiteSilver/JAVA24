@@ -24,38 +24,19 @@ public class StudentClass {
     private Integer classHot;
     /*mappedBy为多的名字 cascade = CascadeType.REMOVE 及联删除 ：
     当该表删除了一条记录那么关联的表记录也会删除*/
-    @OneToMany(mappedBy = "studentClass")
-    private Set<Student> studentSet;
+//    @OneToMany(mappedBy = "studentClass")
+//    private Set<Student> studentSet;
 
     public StudentClass() {
     }
 
-    public StudentClass(String className, Integer classHot,
-                        Set<Student> studentSet) {
+    public StudentClass(String className, Integer classHot) {
 
         this.className = className;
         this.classHot = classHot;
-        this.studentSet = studentSet;
 
     }
 
-    @Override
-    public String toString() {
-        return "StudentClass{" +
-                "id=" + id +
-                ", className='" + className + '\'' +
-                ", classHot=" + classHot +
-                ", studentSet=" + studentSet +
-                '}';
-    }
-
-    public Set<Student> getStudentSet() {
-        return studentSet;
-    }
-
-    public void setStudentSet(Set<Student> studentSet) {
-        this.studentSet = studentSet;
-    }
 
     public Integer getId() {
         return id;

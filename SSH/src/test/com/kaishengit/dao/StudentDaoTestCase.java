@@ -9,6 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,15 +28,16 @@ public class StudentDaoTestCase {
 
     @Test
     public void Test() {
+        System.out.println(isContainChinese("China"));
 
-        List<Student> studentList = studentService.selectAllByPage(1, 21, 5, "MaryAnn");
-
-        /*现在这里我懒加载会出异常*/
-
-        for(Student student: studentList) {
-            System.out.println(student.getStuName() +" ---------xxxx-----------" +
-                    "-----------------------xxxx-- "+student.getStudentClass().getClassName());
-        }
     }
+    public static boolean isContainChinese(String str) {
 
+        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            return true;
+        }
+        return false;
+    }
 }
