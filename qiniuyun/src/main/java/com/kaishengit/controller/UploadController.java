@@ -106,10 +106,11 @@ public class UploadController {
 
     }
 
-    /*=========================以上是表单的直接提交，从表单到七牛
+    /*=========================
+                                以上是表单的直接提交，从表单到七牛
                                下载文件是：
                                 七牛给的域名 / 文件名 ？attname =下载到本地的名字.jpg
-                                ============================*/
+                                         ============================*/
 
 
     @GetMapping("/local")
@@ -164,7 +165,6 @@ public class UploadController {
 
         //设置下载框里的名字
         response.addHeader("Content-Disposition", "attachment;filename=\"1.jpg\"");
-
 
         IOUtils.copy(inputStream, outputStream);
 

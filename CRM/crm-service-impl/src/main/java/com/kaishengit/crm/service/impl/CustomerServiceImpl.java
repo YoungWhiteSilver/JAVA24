@@ -249,12 +249,17 @@ public class CustomerServiceImpl implements CustomerService{
         return customerMapper.saleFunnel();
     }
 
+    /**
+     * 从共公海拿客户
+     * @param id
+     * @param account
+     */
     @Override
     public void taskPublicCustomer(Integer id, Account account) {
 
         Customer customer = customerMapper.selectByPrimaryKey(id);
 
-        if(customer != null && customer.getAccountId() != 0) {
+        if(customer != null && customer.getAccountId() == 0) {
 
             customer.setAccountId(account.getId());
 

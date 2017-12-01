@@ -45,7 +45,7 @@ public class StudentMapperTestCase {
 
         sqlSession.commit();
 
-        // 取出自动增长的朱家的方法
+        // 取出自动增长的zhujian的方法
         System.out.println("ID===========================>>>>>" + student.getId());
 
         System.out.println("updateRows ===================>>>> " + updateRows);

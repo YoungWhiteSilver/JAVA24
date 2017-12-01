@@ -1,4 +1,5 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: 67675
@@ -90,9 +91,10 @@
 
             <li class="${param.menu == 'disk' ? 'active' : ''}"><a href="/disk"><i class="fa fa-share-alt"></i> <span>公司网盘</span></a></li>
             <li class="header">系统管理</li>
+            <shiro:hasRole name="凯盛IT">
             <!-- 部门员工管理 -->
             <li class="${param.menu == 'home' ? 'active' : ''}"><a href="/employee"><i class="fa fa-users"></i> <span>员工管理</span></a></li>
-
+            </shiro:hasRole>
             <!--<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
         </ul>

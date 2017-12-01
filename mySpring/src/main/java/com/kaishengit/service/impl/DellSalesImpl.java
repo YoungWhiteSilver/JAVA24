@@ -9,9 +9,6 @@ import com.kaishengit.service.Sales;
  */
 public class DellSalesImpl implements Sales{
 
-
-
-
     @Override
     public void sales() {
 

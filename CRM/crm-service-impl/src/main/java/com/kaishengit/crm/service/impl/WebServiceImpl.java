@@ -329,7 +329,7 @@ public class WebServiceImpl implements WebService {
     }
 
     /**
-     * 活的当前对象的部门
+     * 获得当前对象的部门
      *
      * @param id
      * @return

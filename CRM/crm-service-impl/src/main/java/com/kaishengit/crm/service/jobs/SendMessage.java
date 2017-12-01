@@ -47,7 +47,6 @@ public class SendMessage implements Job {
                 }
             });
 
-
         } catch (SchedulerException e) {
             e.printStackTrace();
         }

@@ -51,8 +51,6 @@ public abstract class BaseDao<T, PK extends Serializable> {
 
         entityClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
 
-
-
     }
 
     /**

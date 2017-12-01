@@ -11,7 +11,7 @@
 <!-- 顶部导航栏部分 -->
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/home" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>CRM</b></span>
         <!-- logo for regular state and mobile devices -->

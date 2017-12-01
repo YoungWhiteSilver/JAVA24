@@ -91,5 +91,10 @@ public interface CustomerService {
     List<Map<String,String>> saleFunnelListByProgress();
 
 
+    /**
+     * 从共公海拿客户
+     * @param id
+     * @param account
+     */
     void taskPublicCustomer(Integer id, Account account);
 }

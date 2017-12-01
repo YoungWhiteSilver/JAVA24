@@ -236,6 +236,12 @@ public class CustomerController extends BaseController{
 
     }
 
+    /**
+     * 从公海获得对象
+     * @param id
+     * @param redirectAttributes
+     * @return
+     */
     @GetMapping("/{id:\\d+}/take")
     public String taskPublicCustomer(@PathVariable Integer id,
                                      RedirectAttributes redirectAttributes) {
