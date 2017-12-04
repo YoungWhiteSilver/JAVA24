@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.kaisheng" />
+
+    <!-- redis连接池 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxWaitMillis" value="5000" />
+        <property name="maxTotal" value="10" />
+        <property name="maxIdle" value="8" />
+        <property name="minIdle" value="3" />
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy" >
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig" />
+        <constructor-arg name="host" value="192.168.253.98" />
+        <constructor-arg name="port" value="6379" />
+    </bean>
+
+<!--=====================以上配置只是把Jedis放入spring容器中，并没有结合spring======================================================-->
+
+    <!--springData redisConnectionFactory-->
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true" />
+        <property name="hostName" value="192.168.253.98" />
+        <property name="port" value="6379" />
+        <property name="poolConfig" ref="jedisPoolConfig" />
+    </bean>
+
+    <!--redis template-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+
+        <!--链接工厂-->
+        <property name="connectionFactory" ref="connectionFactory" />
+
+        <!--事物-->
+        <property name="enableDefaultSerializer" value="true" />
+    </bean>
+
+</beans>
