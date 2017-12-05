@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--读取properties配置文件-->
+    <context:property-placeholder location="classpath*:config*.properties" />
+
+    <!--配置数据库连接池-->
+    <bean id="basicDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.userName}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="initialSize" value="${jdbc.initSize}" />
+        <property name="maxIdle" value="${jdbc.max}" />
+        <property name="minIdle" value="${jdbc.min}" />
+        <property name="maxWaitMillis" value="${jdbc.wait}" />
+    </bean>
+
+    <!--配置事物-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <property name="dataSource" ref="basicDataSource" />
+    </bean>
+
+    <!--开启基于注解的事物-->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!--配置sqlsessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+        <property name="dataSource" ref="basicDataSource" />
+        <property name="typeAliasesPackage" value="com.kaishengit.entity" />
+        <property name="mapperLocations" value="classpath:mappers/*.xml" />
+    </bean>
+
+    <!--开启自动扫描mapper接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.kaishengit.mappers" />
+    </bean>
+
+</beans>
