@@ -141,7 +141,7 @@
       #{endTime,jdbcType=TIMESTAMP}, #{productImage,jdbcType=VARCHAR}, #{productDesc,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.kaishengit.entity.Product">
+  <insert id="insertSelective" parameterType="com.kaishengit.entity.Product" useGeneratedKeys="true" keyProperty="id">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>

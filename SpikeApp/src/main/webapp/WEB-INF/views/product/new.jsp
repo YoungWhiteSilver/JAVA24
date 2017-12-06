@@ -28,16 +28,15 @@
                     <i class="fa fa-shopping-basket"></i> ProductStore
                 </a>
             </div>
-            <a href="/product/new" class="btn btn-success navbar-btn pull-right"><i class="fa fa-plus"></i> 添加商品</a>
         </div>
     </nav>
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <form id="addCustomerForm">
+                <form id="addCustomerForm" method="post" enctype="multipart/form-data">
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-product-hunt fa-lg"></i></span>
-                        <input type="text" class="form-control" name="productName" placeholder="商品名称">
+                        <input type="text" class="form-control" name="productName" id="productName" placeholder="商品名称">
                     </div>
                     <br>
                     <div class="input-group margin-bottom-sm">
@@ -63,18 +62,18 @@
                     <br>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa  fa-clock-o fa-lg"></i></span>
-                        <input type="text" class="form-control" id="startTime" name="startTime" placeholder="开始时间">
+                        <input type="text" class="form-control" id="startTime" name="sTime" placeholder="开始时间">
                     </div>
                     <br>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa  fa-clock-o fa-lg"></i></span>
-                        <input type="text" class="form-control" id="endTime" name="endTime" placeholder="结束时间">
+                        <input type="text" class="form-control" id="endTime" name="eTime" placeholder="结束时间">
                     </div>
 
                     <br>
                     <div class="input-group margin-bottom-sm">
                         <span class="input-group-addon"><i class="fa fa-picture-o fa-lg"></i></span>
-                        <input type="file" class="form-control" name="productImage" placeholder="商品图片">
+                        <input type="file" class="form-control" name="file" placeholder="商品图片">
                     </div>
                     <br>
                     <div class="from-group">
@@ -97,6 +96,7 @@
     <script src="/static/js/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/static/js/datepicker/bootstrap-datepicker.js"></script>
     <script src="/static/js/moment.js"></script>
+    <script src="/static/js/layer/layer.js"></script>
     <script>
         $(function () {
 
@@ -113,8 +113,7 @@
             });
 
             timepicker.on("changeDate",function (ev) {
-
-                console.log($("#startTime").val());
+                var today =$("#startTime").val();
                 $('#endTime').datetimepicker('setStartDate', today);
 
             });
@@ -124,6 +123,18 @@
                 autoclose: true,
                 todayHighlight: true,
             });
+
+            $("#saveBtn").click(function () {
+
+                if($("#productName").val()) {
+
+                    $("#addCustomerForm").submit();
+
+                } else {
+                    layer.msg("请输入内容")
+                }
+            });
+
 
         });
     </script>

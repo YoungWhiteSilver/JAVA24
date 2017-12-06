@@ -168,4 +168,9 @@ public class Product implements Serializable {
 
     }
 
+    public Long getStartTimeTS() {
+
+        return getStartTime().getTime();
+
+    }
 }

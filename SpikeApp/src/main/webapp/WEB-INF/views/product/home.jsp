@@ -48,7 +48,7 @@
                     <c:forEach items="${productList}" var="product">
                         <div class="row product_list">
                             <div class="col-md-2">
-                                <img src="http://ozoybvszl.bkt.clouddn.com/${product.productImage}?imageView2/1/w/150/h/150" alt="">
+                                <img src="http://ozp55yohm.bkt.clouddn.com/${product.productImage}?imageView2/1/w/150/h/150" alt="">
                             </div>
                             <div class="col-md-10">
                                 <h3><a href="/product/${product.id}">${product.productName}</a> </h3>
