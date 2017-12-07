@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>模板</title>
+</head>
+<body>
+    <div class="header" th:fragment="Header(title)">
+        <h1>CRM<span th:text="${title}"></span></h1>
+    </div>
+
+    <div id="footer">
+        <h2>@kaishengit</h2>
+    </div>
+
+</body>
+</html>

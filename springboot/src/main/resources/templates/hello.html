@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello,Word</title>
+</head>
+<body>
+    <div th:include="~{model::Header(这石头)}"></div>
+
+    <h1 th:text="${user.userName}"></h1>
+    <h2 th:text="${user.address}"></h2>
+    <h2 th:rel="${user.id}"></h2>
+    <input type="text" th:value="${user.userName}">
+
+    <ul>
+        <li th:each="userL, iterStat : ${userList}" th:text="${iterStat.index + '->' + iterStat.count +'->'+ userL.userName}"/>
+    </ul>
+
+    <hr>
+        <h3 th:text="${session.msg}"></h3>
+
+
+        <h3 th:if="${user.id == 1}">Hello</h3>
+        <h3 th:if="${user.id == 2}">Bye</h3>
+
+        <ul th:switch="${user.id}">
+            <li th:case="1">HAHA</li>
+            <li th:case="2">HEHE</li>
+            <li th:case="3">HEHE</li>
+        </ul>
+
+        <img th:src="@{'timg.jpg'}">
+
+    <div th:replace="~{model::#footer}"></div>
+
+
+        <script th:inline="javascript">
+            [# th:if="${user.id == 1}"]
+                    var id = [[${user.id}]]
+                    var userName = [[${user.userName}]]
+            [/]
+        </script>
+
+</body>
+</html>
