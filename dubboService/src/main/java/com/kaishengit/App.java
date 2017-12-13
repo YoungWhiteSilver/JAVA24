@@ -8,9 +8,9 @@ import java.io.IOException;
  * Hello world!
  *
  */
-public class App 
-{
+public class App {
     public static void main( String[] args ) throws IOException {
+
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring-dubbo.xml");
         classPathXmlApplicationContext.start();
 
