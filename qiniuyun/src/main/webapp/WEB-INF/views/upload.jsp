@@ -17,11 +17,35 @@
 </head>
 <body>
 <h3>UploadFile</h3>
-<form action="http://upload-z1.qiniup.com" method="post" enctype="multipart/form-data">
+<form action="http://upload-z1.qiniup.com" method="post" enctype="multipart/form-data" id="formQiniu">
     <input type="hidden" name="token" value="${upToken}">
-    <input type="file" name="file">
+    <input type="file" name="file" id="fileData">
     <input type="hidden" name="x:pid" value="1009" >
-    <button>上传</button>
+    <button id="upBtn">上传</button>
 </form>
+
+<script src="/static/jquery-3.1.0.min.js"></script>
+
+<script>
+    $(function () {
+
+        <%--$("#upBtn").click(function () {--%>
+            <%--if($("#fileData").val()) {--%>
+                <%--$.ajax({--%>
+                    <%--url : "http://upload-z1.qiniup.com",--%>
+                    <%--type : "post",--%>
+                    <%--contentType:"multipart/form-data",--%>
+                    <%--data : {--%>
+                        <%--"token" : "${upToken}"--%>
+                    <%--},--%>
+                    <%--success : function (json) {--%>
+                        <%--console.log(json)--%>
+                    <%--}--%>
+                <%--})--%>
+            <%--}--%>
+        <%--})--%>
+
+    })
+</script>
 </body>
 </html>

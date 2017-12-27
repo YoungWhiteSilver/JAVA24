@@ -41,6 +41,7 @@ public class UploadController {
     public String uploadByForm(Model model) {
 
         String accessKey = "jDC0ldtEGf1DHDhZ0fUyMrBmQTruPZML9wmRa9ne";
+
         String secretKey = "lNx9m5bf0ehECnuNDPHFnYSGAC0g4xOjfeuVstVY";
         String bucket = "crm-silver";
 
@@ -66,6 +67,7 @@ public class UploadController {
         //设置回调的JSON格式
         StringMap stringMap = new StringMap();
         stringMap.put("returnBody", "{\"fileKey\":\"${key}\"},\"fsize\":$(fsize)}");
+        stringMap.put("returnUrl", "http://localhost:8080/sayHi");
 
         String upToken = auth.uploadToken(bucket, null, 3600, stringMap);
 
@@ -174,6 +176,11 @@ public class UploadController {
 
     }
 
+
+    @GetMapping("/sayHi")
+    public void sayHi() {
+        System.out.println("hello");
+    }
 
 
 
